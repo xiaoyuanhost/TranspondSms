@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="转发设置">
+
+        <SwitchPreference
+            android:checked="false"
+            android:key="option_dingding_on"
+            android:summary="使用钉钉转发短信"
+            android:summaryOff="关闭钉钉转发"
+            android:summaryOn="开启钉钉转发"
+            android:title="钉钉转发" />
+
+        <EditTextPreference
+            android:dialogIcon="@mipmap/dingding"
+            android:dependency="option_dingding_on"
+            android:key="option_dingding_token"
+            android:summary="钉钉token"
+            android:title="设置钉钉机器人token" />
+
+        <SwitchPreference
+            android:checked="false"
+            android:key="option_email_on"
+            android:summary="使用邮箱转发短信"
+            android:summaryOff="关闭邮箱转发"
+            android:summaryOn="开启邮箱转发"
+            android:title="邮箱转发" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="自启动设置">
+        <SwitchPreference
+            android:checked="false"
+            android:key="option_withreboot"
+            android:summary="这是选项跟随系统自启"
+            android:summaryOff="不跟随系统自启"
+            android:summaryOn="跟随系统自启"
+            android:title="自启动" />
+        <CheckBoxPreference
+            android:dependency="option_withreboot"
+            android:key="option_start_hot_point"
+            android:summary="自动启动热点"
+            android:summaryOff="不自动启动热点"
+            android:summaryOn="自动启动热点"
+            android:title="自动启动热点" />
+        <EditTextPreference
+            android:dependency="option_start_hot_point"
+            android:key="option_hotspot_name"
+            android:summary="设置WIFI热点名称"
+            android:title="设置WIFI热点名称" />
+        <EditTextPreference
+            android:dependency="option_start_hot_point"
+            android:key="option_hotspot_pwd"
+            android:summary="设置WIFI热点密码"
+            android:title="设置WIFI热点密码 至少8位" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="历史记录设置">
+        <SwitchPreference
+            android:checked="true"
+            android:key="option_save_history_on"
+            android:summary="这是选项保存转发记录"
+            android:summaryOff="不保存转发记录"
+            android:summaryOn="保存转发记录"
+            android:title="保存转发记录" />
+        <EditTextPreference
+            android:dependency="option_save_history_on"
+            android:key="option_save_history_num"
+            android:inputType="number"
+            android:hint="100"
+            android:summary="保存转发历史条数"
+            android:title="设置保存转发历史条数" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
