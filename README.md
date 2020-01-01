@@ -1,9 +1,10 @@
 # 这是我的设备！！最大化自定义 可开启功能：
-## TSMS
-## 热点管理
 
 # TSMS 
 > 信息转发 TranspondSms， 把Android手动的短信通过邮件或者钉钉转出去
+
+# 热点管理 
+> 可设置跟随设备启动时启动热点，并且在热点关闭后10秒自动重启热点（所以想关闭热点先把设置页码的开启热点关掉）
 
 博文连接[https://www.jianshu.com/p/608d1b1477e3]   APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 
