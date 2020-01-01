@@ -41,7 +41,7 @@
             android:summary="自动启动热点"
             android:summaryOff="不自动启动热点"
             android:summaryOn="自动启动热点"
-            android:title="自动启动热点" />
+            android:title="自动启动热点并保持开启（热点关闭后10s后自动开启）" />
         <EditTextPreference
             android:dependency="option_start_hot_point"
             android:key="option_hotspot_name"

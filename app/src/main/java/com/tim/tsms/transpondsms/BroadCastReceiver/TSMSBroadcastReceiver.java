@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms;
+package com.tim.tsms.transpondsms.BroadCastReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

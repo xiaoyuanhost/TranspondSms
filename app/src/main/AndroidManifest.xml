@@ -20,15 +20,22 @@
         <activity android:name=".SettingActivity">
 
         </activity>
-        <receiver android:name=".RebootBroadcastReceiver">
+        <receiver android:name=".BroadCastReceiver.RebootBroadcastReceiver">
             <intent-filter android:priority="2147483647">
                 <!--重启广播-->
             　　<action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".TSMSBroadcastReceiver">
+        <receiver android:name=".BroadCastReceiver.TSMSBroadcastReceiver">
             <intent-filter android:priority="999">
+                <!--短信广播-->
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".BroadCastReceiver.HotsspotBroadcastReceiver">
+            <intent-filter android:priority="999">
+                <!--热点变动广播-->
+                <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED" />
             </intent-filter>
         </receiver>
 

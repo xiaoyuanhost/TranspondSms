@@ -13,6 +13,9 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.tim.tsms.transpondsms.BroadCastReceiver.TSMSBroadcastReceiver;
+import com.tim.tsms.transpondsms.utils.HotSpot;
 import com.tim.tsms.transpondsms.utils.SendHistory;
 import com.tim.tsms.transpondsms.utils.SendUtil;
 
@@ -53,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMsg(View view){
+        try{
+//            6位数随机数
+//            DingdingMsg.sendMsg(Integer.toString((int) (Math.random()*9+1)*100000));
+            SendUtil.send_msg(Integer.toString((int) (Math.random()*9+1)*100000));
+//            SendMailUtil.send("1547681531@qq.com","s","2");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void startHotPot(View view){
+        HotSpot.createWifiHotspot(this) ;
         try{
 //            6位数随机数
 //            DingdingMsg.sendMsg(Integer.toString((int) (Math.random()*9+1)*100000));
