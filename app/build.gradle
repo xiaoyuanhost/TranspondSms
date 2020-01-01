@@ -10,8 +10,8 @@ android {
         applicationId "com.tim.tsms.transpondsms"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
     implementation 'com.android.support:design:28.0.0'
-
+    //android8.0以上需要使用到反射获取隐藏的系统api和动态代理隐藏的抽象类回调
+    //。其中动态代理抽象类回调需要使用ProxyBuilder类，故依赖一个库
+    implementation 'com.linkedin.dexmaker:dexmaker-mockito:2.12.1'
 
 }

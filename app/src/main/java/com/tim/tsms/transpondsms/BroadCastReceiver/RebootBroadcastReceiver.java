@@ -1,10 +1,12 @@
-package com.tim.tsms.transpondsms;
+package com.tim.tsms.transpondsms.BroadCastReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+
+import com.tim.tsms.transpondsms.FrontService;
 import com.tim.tsms.transpondsms.utils.InitUtil;
 
 public class RebootBroadcastReceiver extends BroadcastReceiver {
@@ -17,7 +19,7 @@ public class RebootBroadcastReceiver extends BroadcastReceiver {
             Log.d(TAG,"BOOT_COMPLETED");
 
             InitUtil.init(context);
-            Intent frontServiceIntent = new Intent(context,FrontService.class);
+            Intent frontServiceIntent = new Intent(context, FrontService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(frontServiceIntent);
             } else {
