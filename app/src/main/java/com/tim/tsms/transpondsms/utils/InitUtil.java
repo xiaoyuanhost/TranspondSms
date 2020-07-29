@@ -15,11 +15,6 @@ public class InitUtil {
         }
         SettingUtil.init(context);
 
-        if(SettingUtil.getStartHotSpot()) {
-            Log.d(TAG,"TMSG init createWifiHotspot");
-            HotSpot.createWifiHotspot(context) ;
-        }
-
     }
 
 }

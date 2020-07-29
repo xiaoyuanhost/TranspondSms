@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tim.tsms.transpondsms.BroadCastReceiver.TSMSBroadcastReceiver;
-import com.tim.tsms.transpondsms.utils.HotSpot;
 import com.tim.tsms.transpondsms.utils.SendHistory;
 import com.tim.tsms.transpondsms.utils.SendUtil;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         textv_msg.setMovementMethod(ScrollingMovementMethod.getInstance());
         textv_msg.setText(SendHistory.getHistory());
 
-        requestWriteSettings();
         checkPermission();
 
 //        intentFilter=new IntentFilter();
@@ -67,18 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void startHotPot(View view){
-        HotSpot.createWifiHotspot(this) ;
-        try{
-//            6位数随机数
-//            DingdingMsg.sendMsg(Integer.toString((int) (Math.random()*9+1)*100000));
-            SendUtil.send_msg(Integer.toString((int) (Math.random()*9+1)*100000));
-//            SendMailUtil.send("1547681531@qq.com","s","2");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
     public void toSetting(View view){
         Intent intent = new Intent(this, SettingActivity.class);
@@ -116,26 +102,5 @@ public class MainActivity extends AppCompatActivity {
             }, 0x01);
         }
     }
-
-    //开启热点需要设置系统
-    private static final int REQUEST_CODE_WRITE_SETTINGS = 2;
-    private void requestWriteSettings() {
-        if (!Settings.System.canWrite(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            intent.setData(Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, REQUEST_CODE_WRITE_SETTINGS );
-        }
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_WRITE_SETTINGS) {
-            if (Settings.System.canWrite(this)) {
-                Log.i(TAG, "onActivityResult write settings granted" );
-            }
-        }
-    }
-
 
 }

@@ -33,18 +33,6 @@ public class SettingUtil {
         return sp_setting.getBoolean("option_email_on",false);
     }
 
-    public static boolean getStartHotSpot(){
-        return sp_setting.getBoolean("option_start_hot_point",false);
-    }
-
-    public static String getHotSpotName(){
-        return sp_setting.getString("option_hotspot_name","");
-    }
-
-    public static String getHotSpotPWD(){
-        return sp_setting.getString("option_hotspot_pwd","");
-    }
-
     public static void set_send_util_email(String host,String port,String from_add,String psw,String to_add){
         Log.d(TAG,"set_send_util_email host:"+host+"port"+port+"from_add"+from_add+"psw"+psw+"to_add"+to_add);
         //验证
