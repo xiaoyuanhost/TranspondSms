@@ -10,9 +10,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tim.tsms.transpondsms.utils.Define;
 import com.tim.tsms.transpondsms.utils.SettingUtil;
+import com.tim.tsms.transpondsms.utils.UpdateAppHttpUtil;
+import com.tim.tsms.transpondsms.utils.aUtil;
+import com.vector.update_app.UpdateAppManager;
 
 
 public class SettingActivity extends PreferenceActivity {
@@ -35,6 +39,27 @@ public class SettingActivity extends PreferenceActivity {
         });
         checkWithReboot(withrebootSwitch);
 
+        Preference versionnowPreference = (Preference)findPreference("option_versionnow");
+        versionnowPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                try {
+                    new UpdateAppManager
+                            .Builder()
+                            //当前Activity
+                            .setActivity(SettingActivity.this)
+                            //更新地址
+                            .setUpdateUrl("http://api.allmything.com/api/version/hasnew?versioncode="+aUtil.getVersionCode(SettingActivity.this))
+                            //实现httpManager接口的对象
+                            .setHttpManager(new UpdateAppHttpUtil())
+                            .build()
+                            .update();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
 
     }
 

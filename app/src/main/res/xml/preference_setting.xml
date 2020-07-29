@@ -57,4 +57,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="版本管理">
+        <SwitchPreference
+            android:checked="true"
+            android:key="option_version_check_on"
+            android:summary="自动检查新版本"
+            android:summaryOff="不自动检查新版本"
+            android:summaryOn="自动检查新版本"
+            android:title="检查新版本" />
+        <Preference
+            android:key="option_versionnow"
+            android:title="版本更新"
+            android:summary="当前版本：1.0"
+            />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
