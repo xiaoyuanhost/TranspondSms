@@ -3,4 +3,6 @@
     <string name="dingdingok">确认</string>
     <string name="setdingdingtitle">设置钉钉</string>
     <string name="setemailtitle">设置邮箱</string>
+    <string name="check_new_version">检查更新</string>
+    <string name="to_setting">设置</string>
 </resources>

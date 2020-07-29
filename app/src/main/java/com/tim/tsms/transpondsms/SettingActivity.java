@@ -40,26 +40,11 @@ public class SettingActivity extends PreferenceActivity {
         checkWithReboot(withrebootSwitch);
 
         Preference versionnowPreference = (Preference)findPreference("option_versionnow");
-        versionnowPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                try {
-                    new UpdateAppManager
-                            .Builder()
-                            //当前Activity
-                            .setActivity(SettingActivity.this)
-                            //更新地址
-                            .setUpdateUrl("http://api.allmything.com/api/version/hasnew?versioncode="+aUtil.getVersionCode(SettingActivity.this))
-                            //实现httpManager接口的对象
-                            .setHttpManager(new UpdateAppHttpUtil())
-                            .build()
-                            .update();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return false;
-            }
-        });
+        try {
+            versionnowPreference.setSummary("当前版本:"+aUtil.getVersionName(SettingActivity.this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -115,4 +100,5 @@ public class SettingActivity extends PreferenceActivity {
             }
         });
     }
+
 }

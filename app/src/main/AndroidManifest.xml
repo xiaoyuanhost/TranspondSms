@@ -10,6 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="UPDATE_APP_KEY"
+            android:value="SVSfseesfsf" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5f217c02b4b08b653e8f6b3d" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,16 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity">
-
-        </activity>
+        <activity android:name=".SettingActivity"></activity>
         <receiver android:name=".BroadCastReceiver.RebootBroadcastReceiver">
             <intent-filter android:priority="2147483647">
                 <!--重启广播-->
             　　<action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".BroadCastReceiver.TSMSBroadcastReceiver">
+        <receiver android:name=".BroadCastReceiver.TSMSBroadcastReceiver" android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="999">
                 <!--短信广播-->
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

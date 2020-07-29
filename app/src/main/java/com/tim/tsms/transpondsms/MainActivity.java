@@ -4,19 +4,26 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+
 
 import com.tim.tsms.transpondsms.BroadCastReceiver.TSMSBroadcastReceiver;
 import com.tim.tsms.transpondsms.utils.SendHistory;
 import com.tim.tsms.transpondsms.utils.SendUtil;
+import com.tim.tsms.transpondsms.utils.UpdateAppHttpUtil;
+import com.tim.tsms.transpondsms.utils.aUtil;
+import com.umeng.analytics.MobclickAgent;
+import com.vector.update_app.UpdateAppManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void toSetting(View view){
+    public void toSetting(){
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }
@@ -101,6 +108,63 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.READ_SMS,
             }, 0x01);
         }
+    }
+
+    private void checkNewVersion(){
+        String geturl = "http://api.allmything.com/api/version/hasnew?versioncode=";
+
+        try {
+            geturl+= aUtil.getVersionCode(MainActivity.this);
+
+            Log.i("SettingActivity",geturl);
+            new UpdateAppManager
+                    .Builder()
+                    //当前Activity
+                    .setActivity(MainActivity.this)
+                    //更新地址
+                    .setUpdateUrl(geturl)
+                    //实现httpManager接口的对象
+                    .setHttpManager(new UpdateAppHttpUtil())
+                    .build()
+                    .update();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.check_new_version:
+                checkNewVersion();
+                return true;
+            case R.id.to_setting:
+                toSetting();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

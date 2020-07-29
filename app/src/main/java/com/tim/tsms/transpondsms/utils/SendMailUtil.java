@@ -1,6 +1,5 @@
 package com.tim.tsms.transpondsms.utils;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.File;
@@ -45,7 +44,6 @@ public class SendMailUtil {
         }).start();
     }
 
-    @NonNull
     private static MailInfo creatMail(String toAdd,String title,String content) {
         Log.d(TAG,"creatMail to "+toAdd);
         final MailInfo mailInfo = new MailInfo();
