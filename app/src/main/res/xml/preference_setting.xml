@@ -17,6 +17,13 @@
             android:summary="钉钉token"
             android:title="设置钉钉机器人token" />
 
+        <EditTextPreference
+            android:dialogIcon="@mipmap/dingding"
+            android:dependency="option_dingding_on"
+            android:key="option_dingding_secret"
+            android:summary="钉钉 加签"
+            android:title="设置钉钉机器人secret" />
+
         <SwitchPreference
             android:checked="false"
             android:key="option_email_on"
@@ -42,6 +49,7 @@
     <PreferenceCategory android:title="历史记录设置">
         <SwitchPreference
             android:checked="true"
+            android:defaultValue="true"
             android:key="option_save_history_on"
             android:summary="这是选项保存转发记录"
             android:summaryOff="不保存转发记录"

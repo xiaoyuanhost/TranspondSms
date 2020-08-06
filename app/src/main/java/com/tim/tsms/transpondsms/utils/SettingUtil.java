@@ -28,6 +28,9 @@ public class SettingUtil {
     public static String get_using_dingding_token(){
         return sp_setting.getString("option_dingding_token","");
     }
+    public static String get_using_dingding_secret(){
+        return sp_setting.getString("option_dingding_secret","");
+    }
 
     public static boolean using_email(){
         return sp_setting.getBoolean("option_email_on",false);
