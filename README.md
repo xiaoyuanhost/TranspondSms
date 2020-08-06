@@ -36,6 +36,7 @@
 ![钉钉机器人token设置](/pic/dingdingtokenset.jpg "钉钉机器人token设置")
 ![钉钉机器人转发](/pic/dingding.jpg "钉钉机器人转发")
 ![应用设置](/pic/setting.jpg "应用设置")
+![应用更新](/pic/update-dingdingsecret.jpg "应用更新")
 
 > v2.1.0 1，增加新版钉钉群机器人安全设置中的加签
 
