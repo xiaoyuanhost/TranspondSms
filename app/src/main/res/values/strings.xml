@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">TranspondSms</string>
     <string name="dingdingok">确认</string>
+    <string name="ok">确认</string>
+    <string name="del">删除</string>
+    <string name="test">测试</string>
     <string name="setdingdingtitle">设置钉钉</string>
+    <string name="feedback_input_text">反馈建议</string>
+    <string name="setrule">设置转发规则</string>
     <string name="setemailtitle">设置邮箱</string>
+    <string name="setwebnotifytitle">设置网页通知</string>
     <string name="check_new_version">检查更新</string>
     <string name="to_setting">设置</string>
 </resources>
