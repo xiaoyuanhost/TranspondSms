@@ -66,6 +66,8 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
+> [v3.2.0](pic/TSMS_release_20210106_3.2.0.apk) 1，增加邮箱SSL配置。2，邮箱测试结果通知
+
 > [v3.1.0](pic/TSMS_release_20201231_3.1.0.apk) 1，界面重构。2，增加转发规则页面。3，增加发送方页面。4，升级配置页面
 
 > [v2.1.0](pic/TSMS_release_20200806_2.1.0.apk) 1，增加新版钉钉群机器人安全设置中的加签

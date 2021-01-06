@@ -67,6 +67,25 @@
             android:inputType=""
             android:text="" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:text="是否开启ssl" />
+
+        <Switch
+            android:id="@+id/switchEmailSSl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:ems="10"
+            android:checked="true"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

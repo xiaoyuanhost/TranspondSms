@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -42,7 +43,7 @@ public class SenderActivity extends AppCompatActivity {
     // 用于存储数据
     private List<SenderModel> senderModels = new ArrayList<>();
     private SenderAdapter adapter;
-    public static final int NOTIFY = 0x9731;
+    public static final int NOTIFY = 0x9731993;
     //消息处理者,创建一个Handler的子类对象,目的是重写Handler的处理消息的方法(handleMessage())
     private Handler handler = new Handler(){
         @Override
@@ -245,6 +246,9 @@ public class SenderActivity extends AppCompatActivity {
         if (emailSettingVo != null) editTextEmailHost.setText(emailSettingVo.getHost());
         final EditText editTextEmailPort = view1.findViewById(R.id.editTextEmailPort);
         if (emailSettingVo != null) editTextEmailPort.setText(emailSettingVo.getPort());
+
+        final Switch switchEmailSSl = view1.findViewById(R.id.switchEmailSSl);
+        if (emailSettingVo != null) switchEmailSSl.setChecked(emailSettingVo.getSsl());
         final EditText editTextEmailFromAdd = view1.findViewById(R.id.editTextEmailFromAdd);
         if (emailSettingVo != null) editTextEmailFromAdd.setText(emailSettingVo.getFromEmail());
         final EditText editTextEmailPsw = view1.findViewById(R.id.editTextEmailPsw);
@@ -274,6 +278,7 @@ public class SenderActivity extends AppCompatActivity {
                     EmailSettingVo emailSettingVonew = new EmailSettingVo(
                             editTextEmailHost.getText().toString(),
                             editTextEmailPort.getText().toString(),
+                            switchEmailSSl.isChecked(),
                             editTextEmailFromAdd.getText().toString(),
                             editTextEmailPsw.getText().toString(),
                             editTextEmailToAdd.getText().toString()
@@ -289,6 +294,7 @@ public class SenderActivity extends AppCompatActivity {
                     EmailSettingVo emailSettingVonew = new EmailSettingVo(
                             editTextEmailHost.getText().toString(),
                             editTextEmailPort.getText().toString(),
+                            switchEmailSSl.isChecked(),
                             editTextEmailFromAdd.getText().toString(),
                             editTextEmailPsw.getText().toString(),
                             editTextEmailToAdd.getText().toString()
@@ -321,12 +327,13 @@ public class SenderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String host = editTextEmailHost.getText().toString();
                 String port = editTextEmailPort.getText().toString();
+                Boolean ssl = switchEmailSSl.isChecked();
                 String fromemail = editTextEmailFromAdd.getText().toString();
                 String pwd = editTextEmailPsw.getText().toString();
                 String toemail = editTextEmailToAdd.getText().toString();
                 if (!host.isEmpty() && !port.isEmpty() && !fromemail.isEmpty() && !pwd.isEmpty() && !toemail.isEmpty()) {
                     try {
-                        SenderMailMsg.sendEmail(true,host,port,fromemail,pwd,toemail,"TranspondSms test", "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+                        SenderMailMsg.sendEmail(handler,host,port,ssl,fromemail,pwd,toemail,"TranspondSms test", "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
                     } catch (Exception e) {
                         Toast.makeText(SenderActivity.this, "发送失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();

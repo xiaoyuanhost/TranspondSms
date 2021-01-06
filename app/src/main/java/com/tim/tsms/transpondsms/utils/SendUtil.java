@@ -164,7 +164,7 @@ public class SendUtil {
                     EmailSettingVo emailSettingVo = JSON.parseObject(senderModel.getJsonSetting(), EmailSettingVo.class);
                     if(emailSettingVo!=null){
                         try {
-                            SenderMailMsg.sendEmail(false, emailSettingVo.getHost(),emailSettingVo.getPort(),emailSettingVo.getFromEmail(),
+                            SenderMailMsg.sendEmail(null, emailSettingVo.getHost(),emailSettingVo.getPort(),emailSettingVo.getSsl(),emailSettingVo.getFromEmail(),
                                     emailSettingVo.getPwd(),emailSettingVo.getToEmail(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderMailMsg error "+e.getMessage() );

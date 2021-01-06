@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class EmailSettingVo implements Serializable {
     private String host;
     private String port;
+    private Boolean ssl=true;
     private String fromEmail;
     private String pwd;
     private String toEmail;
@@ -12,9 +13,10 @@ public class EmailSettingVo implements Serializable {
     public EmailSettingVo() {
     }
 
-    public EmailSettingVo(String host, String port, String fromEmail, String pwd, String toEmail) {
+    public EmailSettingVo(String host, String port, Boolean ssl, String fromEmail, String pwd, String toEmail) {
         this.host = host;
         this.port = port;
+        this.ssl = ssl;
         this.fromEmail = fromEmail;
         this.pwd = pwd;
         this.toEmail = toEmail;
@@ -30,6 +32,14 @@ public class EmailSettingVo implements Serializable {
 
     public String getPort() {
         return port;
+    }
+
+    public Boolean getSsl() {
+        return ssl;
+    }
+
+    public void setSsl(Boolean ssl) {
+        this.ssl = ssl;
     }
 
     public void setPort(String port) {

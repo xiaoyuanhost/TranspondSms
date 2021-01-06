@@ -1,8 +1,14 @@
 package com.tim.tsms.transpondsms.utils;
 
+import android.util.Log;
+
+import com.sun.mail.util.MailSSLSocketFactory;
+
+import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 public class MailSenderInfo {
+    private static String TAG = "MailSenderInfo";
     // 发送邮件的服务器的IP和端口
     private String mailServerHost;
     private String mailServerPort = "25";
@@ -16,6 +22,8 @@ public class MailSenderInfo {
     private String password;
     // 是否需要身份验证
     private boolean validate = true;
+    //开启ssl
+    private boolean ssl = true;
     // 邮件主题
     private String subject;
     // 邮件的文本内容
@@ -27,11 +35,25 @@ public class MailSenderInfo {
      * 获得邮件会话属性
      */
     public Properties getProperties() {
-        Properties p = new Properties();
-        p.put("mail.smtp.host", this.mailServerHost);
-        p.put("mail.smtp.port", this.mailServerPort);
-        p.put("mail.smtp.auth", validate ? "true" : "false");
-        return p;
+        Properties props = new Properties();
+        props.put("mail.smtp.host", this.mailServerHost);
+        props.put("mail.smtp.port", this.mailServerPort);
+        props.put("mail.smtp.auth", validate ? "true" : "false");
+
+        if(ssl){
+            try {
+                MailSSLSocketFactory sf = new MailSSLSocketFactory();
+                sf.setTrustAllHosts(true);
+                props.put("mail.smtp.ssl.enable","true");
+                props.put("mail.smtp.ssl.socketFactory",sf);
+                Log.i(TAG, "set ssl success");
+            } catch (GeneralSecurityException e) {
+                Log.e(TAG, "set ssl fail: "+e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return props;
     }
 
     public String getMailServerHost() {
@@ -112,6 +134,14 @@ public class MailSenderInfo {
 
     public void setContent(String textContent) {
         this.content = textContent;
+    }
+
+    public boolean isSsl() {
+        return ssl;
+    }
+
+    public void setSsl(boolean ssl) {
+        this.ssl = ssl;
     }
 }
 

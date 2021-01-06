@@ -32,9 +32,9 @@ public class SenderMailMsg {
 //    private static final String FROM_ADD = "xxxxxx@163.com";
 //    private static final String FROM_PSW = "xx";
 
-    public static void sendEmail(final boolean handError,final String host, final String port, final String fromemail, final String pwd, final String toAdd, final String title, final String content) {
+    public static void sendEmail(final Handler handError, final String host, final String port, final boolean ssl, final String fromemail, final String pwd, final String toAdd, final String title, final String content) {
 
-        Log.d(TAG, "sendEmail: host:"+host+" port:"+port+" fromemail:"+fromemail+" pwd:"+pwd+" toAdd:"+toAdd);
+        Log.d(TAG, "sendEmail: host:" + host + " port:" + port + " ssl:" + ssl + " fromemail:" + fromemail + " pwd:" + pwd + " toAdd:" + toAdd);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,6 +50,7 @@ public class SenderMailMsg {
                     mailInfo.setToAddress(toAdd);
                     mailInfo.setSubject(title);
                     mailInfo.setContent(content);
+                    mailInfo.setSsl(ssl);
 
                     //这个类主要来发送邮件
                     // 判断是否需要身份认证
@@ -83,38 +84,37 @@ public class SenderMailMsg {
 
                     } catch (MessagingException ex) {
                         ex.printStackTrace();
-                        Log.e(TAG, "error"+ex.getMessage());
-                        if(handError){
+                        Log.e(TAG, "error" + ex.getMessage());
+                        if (handError != null) {
                             android.os.Message msg = new android.os.Message();
                             msg.what = NOTIFY;
                             Bundle bundle = new Bundle();
-                            bundle.putString("DATA",ex.getMessage());
+                            bundle.putString("DATA", ex.getMessage());
                             msg.setData(bundle);
-                            (new Handler()).sendMessage(msg);
+                            handError.sendMessage(msg);
                         }
 
-
                     }
-                    if(handError){
+                    if (handError != null) {
                         android.os.Message msg = new android.os.Message();
                         msg.what = NOTIFY;
                         Bundle bundle = new Bundle();
-                        bundle.putString("DATA","发送成功");
+                        bundle.putString("DATA", "发送成功");
                         msg.setData(bundle);
-                        (new Handler()).sendMessage(msg);
+                        handError.sendMessage(msg);
                     }
 
                     Log.e(TAG, "sendEmail success");//sms.sendHtmlMail(mailInfo);//发送html格式
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage(), e);
-                    if(handError){
+                    if (handError != null) {
                         android.os.Message msg = new android.os.Message();
                         msg.what = NOTIFY;
                         Bundle bundle = new Bundle();
-                        bundle.putString("DATA",e.getMessage());
+                        bundle.putString("DATA", e.getMessage());
                         msg.setData(bundle);
-                        (new Handler()).sendMessage(msg);
+                        handError.sendMessage(msg);
                     }
 
                 }
@@ -125,26 +125,24 @@ public class SenderMailMsg {
 
 /**
  * public void sendFileMail(View view) {
- *
- *         File file = new File(Environment.getExternalStorageDirectory()+File.separator+"test.txt");
- *         OutputStream os = null;
- *         try {
- *             os = new FileOutputStream(file);
- *             String str = "hello world";
- *             byte[] data = str.getBytes();
- *             os.write(data);
- *         } catch (FileNotFoundException e) {
- *             e.printStackTrace();
- *         } catch (IOException e) {
- *             e.printStackTrace();
- *         }finally{
- *             try {
- *                 if (os != null)os.close();
- *             } catch (IOException e) {
- *             }
- *         }
- *         SenderMailMsg.send(file,editText.getText().toString());
- *     }
- *
- *
+ * <p>
+ * File file = new File(Environment.getExternalStorageDirectory()+File.separator+"test.txt");
+ * OutputStream os = null;
+ * try {
+ * os = new FileOutputStream(file);
+ * String str = "hello world";
+ * byte[] data = str.getBytes();
+ * os.write(data);
+ * } catch (FileNotFoundException e) {
+ * e.printStackTrace();
+ * } catch (IOException e) {
+ * e.printStackTrace();
+ * }finally{
+ * try {
+ * if (os != null)os.close();
+ * } catch (IOException e) {
+ * }
+ * }
+ * SenderMailMsg.send(file,editText.getText().toString());
+ * }
  */
