@@ -1,4 +1,7 @@
-## 配置转发到WEB后，测试或者转发时会向配置的url发送POST请求
+## 配置转发到WEB后，测试或者转发时会向配置的token即url发送POST请求
+
+url:
+https://api.sl.allmything.com/api/msg/pushMsg?token=p9EM2K4Po01UIJr3sISbRmBFYWCHOGQaqwqk6cgxdsfyevTXtz8hVUlNAunD5i
 
 ### 请求体如下
 > post form
