@@ -22,6 +22,7 @@ https://api.sl.allmything.com/api/msg/pushMsg?token=p9EM2K4Po01UIJr3sISbRmBFYWCH
 
 示例：
 ```Java
+//java
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
