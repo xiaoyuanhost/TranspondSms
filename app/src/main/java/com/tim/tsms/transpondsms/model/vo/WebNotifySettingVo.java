@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 public class WebNotifySettingVo implements Serializable {
     private String token;
+    private String secret;
 
     public WebNotifySettingVo() {
     }
 
-    public WebNotifySettingVo(String token) {
+    public WebNotifySettingVo(String token,String secret) {
         this.token = token;
+        this.secret = secret;
     }
 
     public String getToken() {
@@ -20,4 +22,11 @@ public class WebNotifySettingVo implements Serializable {
         this.token = token;
     }
 
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
 }

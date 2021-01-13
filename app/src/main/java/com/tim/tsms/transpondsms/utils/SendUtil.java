@@ -149,7 +149,7 @@ public class SendUtil {
                     DingDingSettingVo dingDingSettingVo = JSON.parseObject(senderModel.getJsonSetting(), DingDingSettingVo.class);
                     if(dingDingSettingVo!=null){
                         try {
-                            SenderDingdingMsg.sendMsg(false, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(), smsVo.getSmsVoForSend());
+                            SenderDingdingMsg.sendMsg(null, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(), smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: dingding error "+e.getMessage() );
                         }
@@ -180,7 +180,7 @@ public class SendUtil {
                     WebNotifySettingVo webNotifySettingVo = JSON.parseObject(senderModel.getJsonSetting(), WebNotifySettingVo.class);
                     if(webNotifySettingVo!=null){
                         try {
-                            SenderWebNotifyMsg.sendMsg(false,webNotifySettingVo.getToken(),smsVo.getMobile(),smsVo.getSmsVoForSend());
+                            SenderWebNotifyMsg.sendMsg(null,webNotifySettingVo.getToken(),webNotifySettingVo.getSecret(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderWebNotifyMsg error "+e.getMessage() );
                         }

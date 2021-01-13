@@ -78,8 +78,8 @@ public class SenderDingdingMsg {
         });
     }
 
-    public static void sendMsg(final boolean handError, String token, String secret, String msg) throws Exception {
-        Log.i(TAG, "sendMsg handError:"+handError+" token:"+token+" secret:"+secret+" msg:"+msg);
+    public static void sendMsg(final Handler handError, String token, String secret, String msg) throws Exception {
+        Log.i(TAG, "sendMsg token:"+token+" secret:"+secret+" msg:"+msg);
 
         if (token == null || token.isEmpty()) {
             return;
@@ -116,13 +116,13 @@ public class SenderDingdingMsg {
 
 //                SendHistory.addHistory("钉钉转发:"+msgf+"onFailure：" + e.getMessage());
 
-                if(handError){
+                if(handError != null){
                     android.os.Message msg = new android.os.Message();
                     msg.what = NOTIFY;
                     Bundle bundle = new Bundle();
                     bundle.putString("DATA","发送失败：" + e.getMessage());
                     msg.setData(bundle);
-                    (new Handler()).sendMessage(msg);
+                    handError.sendMessage(msg);
                 }
 
 
@@ -133,13 +133,13 @@ public class SenderDingdingMsg {
                 final String responseStr = response.body().string();
                 Log.d(TAG, "Code：" + String.valueOf(response.code()) + responseStr);
 
-                if(handError){
+                if(handError != null){
                     android.os.Message msg = new android.os.Message();
                     msg.what = NOTIFY;
                     Bundle bundle = new Bundle();
                     bundle.putString("DATA","发送状态：" + responseStr);
                     msg.setData(bundle);
-                    (new Handler()).sendMessage(msg);
+                    handError.sendMessage(msg);
                     Log.d(TAG, "Coxxyyde：" + String.valueOf(response.code()) + responseStr);
                 }
 

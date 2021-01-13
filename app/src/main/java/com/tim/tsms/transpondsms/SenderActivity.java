@@ -215,7 +215,7 @@ public class SenderActivity extends AppCompatActivity {
                 String secret = editTextDingdingSecret.getText().toString();
                 if (token != null && !token.isEmpty()) {
                     try {
-                        SenderDingdingMsg.sendMsg(true, token, secret, "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+                        SenderDingdingMsg.sendMsg(handler, token, secret, "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
                     } catch (Exception e) {
                         Toast.makeText(SenderActivity.this, "发送失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();
@@ -362,6 +362,8 @@ public class SenderActivity extends AppCompatActivity {
         if (senderModel != null) editTextWebNotifyName.setText(senderModel.getName());
         final EditText editTextWebNotifyToken = view1.findViewById(R.id.editTextWebNotifyToken);
         if (webNotifySettingVo != null) editTextWebNotifyToken.setText(webNotifySettingVo.getToken());
+        final EditText editTextWebNotifySecret = view1.findViewById(R.id.editTextWebNotifySecret);
+        if (webNotifySettingVo != null) editTextWebNotifySecret.setText(webNotifySettingVo.getSecret());
 
         Button buttonbebnotifyok = view1.findViewById(R.id.buttonbebnotifyok);
         Button buttonbebnotifydel = view1.findViewById(R.id.buttonbebnotifydel);
@@ -383,7 +385,8 @@ public class SenderActivity extends AppCompatActivity {
                     newSenderModel.setType(TYPE_WEB_NOTIFY);
                     newSenderModel.setStatus(STATUS_ON);
                     WebNotifySettingVo webNotifySettingVoNew = new WebNotifySettingVo(
-                            editTextWebNotifyToken.getText().toString()
+                            editTextWebNotifyToken.getText().toString(),
+                            editTextWebNotifySecret.getText().toString()
                     );
                     newSenderModel.setJsonSetting(JSON.toJSONString(webNotifySettingVoNew));
                     SenderUtil.addSender(newSenderModel);
@@ -394,7 +397,8 @@ public class SenderActivity extends AppCompatActivity {
                     senderModel.setType(TYPE_WEB_NOTIFY);
                     senderModel.setStatus(STATUS_ON);
                     WebNotifySettingVo webNotifySettingVoNew = new WebNotifySettingVo(
-                            editTextWebNotifyToken.getText().toString()
+                            editTextWebNotifyToken.getText().toString(),
+                            editTextWebNotifySecret.getText().toString()
                     );
                     senderModel.setJsonSetting(JSON.toJSONString(webNotifySettingVoNew));
                     SenderUtil.updateSender(senderModel);
@@ -421,9 +425,10 @@ public class SenderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String token = editTextWebNotifyToken.getText().toString();
+                String secret = editTextWebNotifySecret.getText().toString();
                 if (!token.isEmpty()) {
                     try {
-                        SenderWebNotifyMsg.sendMsg(true,token,"TranspondSms test", "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+                        SenderWebNotifyMsg.sendMsg(handler,token,secret,"TranspondSms test", "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
                     } catch (Exception e) {
                         Toast.makeText(SenderActivity.this, "发送失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();
