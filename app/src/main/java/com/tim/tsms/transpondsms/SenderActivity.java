@@ -20,9 +20,11 @@ import com.tim.tsms.transpondsms.adapter.SenderAdapter;
 import com.tim.tsms.transpondsms.model.SenderModel;
 import com.tim.tsms.transpondsms.model.vo.DingDingSettingVo;
 import com.tim.tsms.transpondsms.model.vo.EmailSettingVo;
+import com.tim.tsms.transpondsms.model.vo.QYWXGroupRobotSettingVo;
 import com.tim.tsms.transpondsms.model.vo.WebNotifySettingVo;
 import com.tim.tsms.transpondsms.utils.SenderDingdingMsg;
 import com.tim.tsms.transpondsms.utils.SenderMailMsg;
+import com.tim.tsms.transpondsms.utils.SenderQyWxGroupRobotMsg;
 import com.tim.tsms.transpondsms.utils.SenderUtil;
 import com.tim.tsms.transpondsms.utils.SenderWebNotifyMsg;
 import com.umeng.analytics.MobclickAgent;
@@ -35,6 +37,7 @@ import java.util.List;
 import static com.tim.tsms.transpondsms.model.SenderModel.STATUS_ON;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_DINGDING;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_EMAIL;
+import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_QYWX_GROUP_ROBOT;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_WEB_NOTIFY;
 
 public class SenderActivity extends AppCompatActivity {
@@ -88,6 +91,9 @@ public class SenderActivity extends AppCompatActivity {
                     case TYPE_WEB_NOTIFY:
                         setWebNotify(senderModel);
                         break;
+                    case TYPE_QYWX_GROUP_ROBOT:
+                        setQYWXGroupRobot(senderModel);
+                        break;
                     default:
                         Toast.makeText(SenderActivity.this,"异常的发送方类型！删除",Toast.LENGTH_LONG).show();
                         break;
@@ -119,6 +125,9 @@ public class SenderActivity extends AppCompatActivity {
                         break;
                     case TYPE_WEB_NOTIFY:
                         setWebNotify(null);
+                        break;
+                    case TYPE_QYWX_GROUP_ROBOT:
+                        setQYWXGroupRobot(null);
                         break;
                     default:
                         Toast.makeText(SenderActivity.this, "暂不支持这种转发！", Toast.LENGTH_LONG).show();
@@ -435,6 +444,96 @@ public class SenderActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(SenderActivity.this, "token 不能为空", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void setQYWXGroupRobot(final SenderModel senderModel) {
+        QYWXGroupRobotSettingVo qywxGroupRobotSettingVo = null;
+        //try phrase json setting
+        if (senderModel != null) {
+            String jsonSettingStr = senderModel.getJsonSetting();
+            if (jsonSettingStr != null) {
+                qywxGroupRobotSettingVo = JSON.parseObject(jsonSettingStr, QYWXGroupRobotSettingVo.class);
+            }
+        }
+
+        final AlertDialog.Builder alertDialog71 = new AlertDialog.Builder(SenderActivity.this);
+        View view1 = View.inflate(SenderActivity.this, R.layout.activity_alter_dialog_setview_qywxgrouprobot, null);
+
+        final EditText editTextQYWXGroupRobotName = view1.findViewById(R.id.editTextQYWXGroupRobotName);
+        if (senderModel != null) editTextQYWXGroupRobotName.setText(senderModel.getName());
+        final EditText editTextQYWXGroupRobotWebHook = view1.findViewById(R.id.editTextQYWXGroupRobotWebHook);
+        if (qywxGroupRobotSettingVo != null) editTextQYWXGroupRobotWebHook.setText(qywxGroupRobotSettingVo.getWebHook());
+
+        Button buttonQyWxGroupRobotOk = view1.findViewById(R.id.buttonQyWxGroupRobotOk);
+        Button buttonQyWxGroupRobotDel = view1.findViewById(R.id.buttonQyWxGroupRobotDel);
+        Button buttonQyWxGroupRobotTest = view1.findViewById(R.id.buttonQyWxGroupRobotTest);
+        alertDialog71
+                .setTitle(R.string.setqywxgrouprobottitle)
+                .setIcon(R.mipmap.ic_launcher)
+                .setView(view1)
+                .create();
+        final AlertDialog show = alertDialog71.show();
+
+        buttonQyWxGroupRobotOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (senderModel == null) {
+                    SenderModel newSenderModel = new SenderModel();
+                    newSenderModel.setName(editTextQYWXGroupRobotName.getText().toString());
+                    newSenderModel.setType(TYPE_QYWX_GROUP_ROBOT);
+                    newSenderModel.setStatus(STATUS_ON);
+                    QYWXGroupRobotSettingVo qywxGroupRobotSettingVoNew = new QYWXGroupRobotSettingVo(
+                            editTextQYWXGroupRobotWebHook.getText().toString()
+                    );
+                    newSenderModel.setJsonSetting(JSON.toJSONString(qywxGroupRobotSettingVoNew));
+                    SenderUtil.addSender(newSenderModel);
+                    initSenders();
+                    adapter.add(senderModels);
+                } else {
+                    senderModel.setName(editTextQYWXGroupRobotName.getText().toString());
+                    senderModel.setType(TYPE_QYWX_GROUP_ROBOT);
+                    senderModel.setStatus(STATUS_ON);
+                    QYWXGroupRobotSettingVo qywxGroupRobotSettingVoNew = new QYWXGroupRobotSettingVo(
+                            editTextQYWXGroupRobotWebHook.getText().toString()
+                    );
+                    senderModel.setJsonSetting(JSON.toJSONString(qywxGroupRobotSettingVoNew));
+                    SenderUtil.updateSender(senderModel);
+                    initSenders();
+                    adapter.update(senderModels);
+                }
+
+                show.dismiss();
+
+            }
+        });
+        buttonQyWxGroupRobotDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (senderModel != null) {
+                    SenderUtil.delSender(senderModel.getId());
+                    initSenders();
+                    adapter.del(senderModels);
+                }
+                show.dismiss();
+            }
+        });
+        buttonQyWxGroupRobotTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String webHook = editTextQYWXGroupRobotWebHook.getText().toString();
+                if (!webHook.isEmpty()) {
+                    try {
+                        SenderQyWxGroupRobotMsg.sendMsg(handler,webHook,"TranspondSms test", "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+                    } catch (Exception e) {
+                        Toast.makeText(SenderActivity.this, "发送失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(SenderActivity.this, "webHook 不能为空", Toast.LENGTH_LONG).show();
                 }
             }
         });

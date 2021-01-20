@@ -9,6 +9,7 @@
     <string name="setrule">设置转发规则</string>
     <string name="setemailtitle">设置邮箱</string>
     <string name="setwebnotifytitle">设置网页通知</string>
+    <string name="setqywxgrouprobottitle">设置企业微信群机器人</string>
     <string name="check_new_version">检查更新</string>
     <string name="to_setting">设置</string>
 </resources>

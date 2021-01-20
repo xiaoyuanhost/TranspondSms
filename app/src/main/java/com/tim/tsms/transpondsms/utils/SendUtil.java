@@ -9,6 +9,7 @@ import com.tim.tsms.transpondsms.model.RuleModel;
 import com.tim.tsms.transpondsms.model.SenderModel;
 import com.tim.tsms.transpondsms.model.vo.DingDingSettingVo;
 import com.tim.tsms.transpondsms.model.vo.EmailSettingVo;
+import com.tim.tsms.transpondsms.model.vo.QYWXGroupRobotSettingVo;
 import com.tim.tsms.transpondsms.model.vo.SmsVo;
 import com.tim.tsms.transpondsms.model.vo.WebNotifySettingVo;
 
@@ -24,6 +25,7 @@ import static com.tim.tsms.transpondsms.model.RuleModel.FILED_PHONE_NUM;
 import static com.tim.tsms.transpondsms.model.RuleModel.FILED_TRANSPOND_ALL;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_DINGDING;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_EMAIL;
+import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_QYWX_GROUP_ROBOT;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_WEB_NOTIFY;
 
 public class SendUtil {
@@ -183,6 +185,21 @@ public class SendUtil {
                             SenderWebNotifyMsg.sendMsg(null,webNotifySettingVo.getToken(),webNotifySettingVo.getSecret(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderWebNotifyMsg error "+e.getMessage() );
+                        }
+
+                    }
+                }
+
+                break;
+            case TYPE_QYWX_GROUP_ROBOT:
+                //try phrase json setting
+                if (senderModel.getJsonSetting() != null) {
+                    QYWXGroupRobotSettingVo qywxGroupRobotSettingVo = JSON.parseObject(senderModel.getJsonSetting(), QYWXGroupRobotSettingVo.class);
+                    if(qywxGroupRobotSettingVo!=null){
+                        try {
+                            SenderQyWxGroupRobotMsg.sendMsg(null,qywxGroupRobotSettingVo.getWebHook(),smsVo.getMobile(),smsVo.getSmsVoForSend());
+                        }catch (Exception e){
+                            Log.e(TAG, "senderSendMsg: SenderQyWxGroupRobotMsg error "+e.getMessage() );
                         }
 
                     }

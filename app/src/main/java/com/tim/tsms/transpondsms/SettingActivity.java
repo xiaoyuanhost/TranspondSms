@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tim.tsms.transpondsms.BroadCastReceiver.RebootBroadcastReceiver;
 import com.tim.tsms.transpondsms.model.vo.FeedBackResult;
 import com.tim.tsms.transpondsms.utils.HttpI;
 import com.tim.tsms.transpondsms.utils.HttpUtil;
@@ -38,6 +39,7 @@ public class SettingActivity extends AppCompatActivity {
         Log.d(TAG,"oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        Log.d(TAG, "onCreate: "+RebootBroadcastReceiver.class.getName());
 
         Switch check_with_reboot = (Switch)findViewById(R.id.switch_with_reboot);
         checkWithReboot(check_with_reboot);
@@ -61,7 +63,8 @@ public class SettingActivity extends AppCompatActivity {
     //检查重启广播接受器状态并设置
     private void checkWithReboot(Switch withrebootSwitch){
         //获取组件
-        final ComponentName cm = new ComponentName(this.getPackageName(), this.getPackageName()+".RebootBroadcastReceiver");
+        final ComponentName cm = new ComponentName(this.getPackageName(), RebootBroadcastReceiver.class.getName());
+
         final PackageManager pm = getPackageManager();
         int state = pm.getComponentEnabledSetting(cm);
         if (state != PackageManager.COMPONENT_ENABLED_STATE_DISABLED

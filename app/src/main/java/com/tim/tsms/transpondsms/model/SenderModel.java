@@ -7,14 +7,15 @@ public class SenderModel {
     private Long id;
     private String name;
 
-    public static final int STATUS_ON=1;
-    public static final int STATUS_OFF=0;
+    public static final int STATUS_ON = 1;
+    public static final int STATUS_OFF = 0;
     private int status;
 
-    public static final int TYPE_DINGDING=0;
-    public static final int TYPE_EMAIL=1;
-    public static final int TYPE_MESSAGE=2;
-    public static final int TYPE_WEB_NOTIFY=3;
+    public static final int TYPE_DINGDING = 0;
+    public static final int TYPE_EMAIL = 1;
+    public static final int TYPE_MESSAGE = 2;
+    public static final int TYPE_WEB_NOTIFY = 3;
+    public static final int TYPE_QYWX_GROUP_ROBOT = 4;
     private int type;
 
     private String jsonSetting;
@@ -26,7 +27,7 @@ public class SenderModel {
 
     public SenderModel(String name, int status, int type, String jsonSetting) {
         this.name = name;
-        this.status = status==STATUS_ON?STATUS_ON:STATUS_OFF;
+        this.status = status == STATUS_ON ? STATUS_ON : STATUS_OFF;
         this.type = type;
         this.jsonSetting = jsonSetting;
     }
@@ -52,7 +53,7 @@ public class SenderModel {
     }
 
     public void setStatus(int status) {
-        this.status = status==STATUS_ON?STATUS_ON:STATUS_OFF;
+        this.status = status == STATUS_ON ? STATUS_ON : STATUS_OFF;
     }
 
     public int getType() {
@@ -72,11 +73,13 @@ public class SenderModel {
     }
 
     public int getImageId() {
-        switch (type){
+        switch (type) {
             case (TYPE_DINGDING):
                 return R.mipmap.dingding;
             case (TYPE_EMAIL):
                 return R.drawable.ic_baseline_email_24;
+            case (TYPE_QYWX_GROUP_ROBOT):
+                return R.mipmap.qywx;
             default:
                 return R.mipmap.ic_launcher_round;
 
@@ -84,11 +87,13 @@ public class SenderModel {
     }
 
     public static int getImageId(int type) {
-        switch (type){
+        switch (type) {
             case (TYPE_DINGDING):
                 return R.mipmap.dingding;
             case (TYPE_EMAIL):
                 return R.drawable.ic_baseline_email_24;
+            case (TYPE_QYWX_GROUP_ROBOT):
+                return R.mipmap.qywx;
             default:
                 return R.mipmap.ic_launcher_round;
 
