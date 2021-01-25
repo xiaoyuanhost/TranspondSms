@@ -151,7 +151,7 @@ public class SendUtil {
                     DingDingSettingVo dingDingSettingVo = JSON.parseObject(senderModel.getJsonSetting(), DingDingSettingVo.class);
                     if(dingDingSettingVo!=null){
                         try {
-                            SenderDingdingMsg.sendMsg(null, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(), smsVo.getSmsVoForSend());
+                            SenderDingdingMsg.sendMsg(null, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(),dingDingSettingVo.getAtMobils(),dingDingSettingVo.getAtAll(), smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: dingding error "+e.getMessage() );
                         }

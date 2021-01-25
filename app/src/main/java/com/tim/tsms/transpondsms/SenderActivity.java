@@ -161,6 +161,12 @@ public class SenderActivity extends AppCompatActivity {
         final EditText editTextDingdingSecret = view1.findViewById(R.id.editTextDingdingSecret);
         if (dingDingSettingVo != null)
             editTextDingdingSecret.setText(dingDingSettingVo.getSecret());
+        final EditText editTextDingdingAtMobiles = view1.findViewById(R.id.editTextDingdingAtMobiles);
+        if (dingDingSettingVo != null)
+            editTextDingdingAtMobiles.setText(dingDingSettingVo.getAtMobils());
+        final Switch switchDingdingAtAll = view1.findViewById(R.id.switchDingdingAtAll);
+        if (dingDingSettingVo != null)
+            switchDingdingAtAll.setChecked(dingDingSettingVo.getAtAll());
 
         Button buttondingdingok = view1.findViewById(R.id.buttondingdingok);
         Button buttondingdingdel = view1.findViewById(R.id.buttondingdingdel);
@@ -180,7 +186,11 @@ public class SenderActivity extends AppCompatActivity {
                     newSenderModel.setName(editTextDingdingName.getText().toString());
                     newSenderModel.setType(TYPE_DINGDING);
                     newSenderModel.setStatus(STATUS_ON);
-                    DingDingSettingVo dingDingSettingVonew = new DingDingSettingVo(editTextDingdingToken.getText().toString(), editTextDingdingSecret.getText().toString());
+                    DingDingSettingVo dingDingSettingVonew = new DingDingSettingVo(
+                            editTextDingdingToken.getText().toString(),
+                            editTextDingdingSecret.getText().toString(),
+                            editTextDingdingAtMobiles.getText().toString(),
+                            switchDingdingAtAll.isChecked());
                     newSenderModel.setJsonSetting(JSON.toJSONString(dingDingSettingVonew));
                     SenderUtil.addSender(newSenderModel);
                     initSenders();
@@ -190,7 +200,11 @@ public class SenderActivity extends AppCompatActivity {
                     senderModel.setName(editTextDingdingName.getText().toString());
                     senderModel.setType(TYPE_DINGDING);
                     senderModel.setStatus(STATUS_ON);
-                    DingDingSettingVo dingDingSettingVonew = new DingDingSettingVo(editTextDingdingToken.getText().toString(), editTextDingdingSecret.getText().toString());
+                    DingDingSettingVo dingDingSettingVonew = new DingDingSettingVo(
+                            editTextDingdingToken.getText().toString(),
+                            editTextDingdingSecret.getText().toString(),
+                            editTextDingdingAtMobiles.getText().toString(),
+                            switchDingdingAtAll.isChecked());
                     senderModel.setJsonSetting(JSON.toJSONString(dingDingSettingVonew));
                     SenderUtil.updateSender(senderModel);
                     initSenders();
@@ -222,9 +236,11 @@ public class SenderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String token = editTextDingdingToken.getText().toString();
                 String secret = editTextDingdingSecret.getText().toString();
+                String atMobiles = editTextDingdingAtMobiles.getText().toString();
+                Boolean atAll = switchDingdingAtAll.isChecked();
                 if (token != null && !token.isEmpty()) {
                     try {
-                        SenderDingdingMsg.sendMsg(handler, token, secret, "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+                        SenderDingdingMsg.sendMsg(handler, token, secret,atMobiles,atAll, "test@" + (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
                     } catch (Exception e) {
                         Toast.makeText(SenderActivity.this, "发送失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
                         e.printStackTrace();

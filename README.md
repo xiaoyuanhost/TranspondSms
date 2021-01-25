@@ -28,7 +28,9 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 |  ----  | ----  |
 | 转发监听  | 已实现 |
 | 转发钉钉  | 单个钉钉群已实现 |
+| 转发钉钉@某人  | 已实现 |
 | 转发邮箱  | 单个邮箱已实现 |
+| 转发企业微信群机器人  | 已实现 |
 | 转发web页面  | 单个web页面已实现（[向设置的url发送POST请求](doc/POST_WEB.md)） |
 | 转发规则  | （规则即：什么短信转发到哪里）已实现实现 |
 | 兼容  |  已兼容6.xx、7.xx、8.xx、9.xx、10.xx  |
@@ -66,6 +68,8 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
+> [v3.5.0](app/release/TSMS_release_20210126_3.5.0.apk) 1，钉钉机器人添加 @ 功能
+
 > [v3.4.0](pic/TSMS_release_20210120_3.4.0.apk) 1，增加企业微信群机器人通知。2，修复设置开机启动崩溃
 
 > [v3.3.0](pic/TSMS_release_20210113_3.3.0.apk) 1，增加网页通知验签。2，修复网页及钉钉配置测试崩溃

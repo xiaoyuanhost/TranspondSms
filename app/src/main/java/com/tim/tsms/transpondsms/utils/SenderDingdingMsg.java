@@ -3,14 +3,21 @@ package com.tim.tsms.transpondsms.utils;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.util.Base64;
 import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -78,8 +85,8 @@ public class SenderDingdingMsg {
         });
     }
 
-    public static void sendMsg(final Handler handError, String token, String secret, String msg) throws Exception {
-        Log.i(TAG, "sendMsg token:"+token+" secret:"+secret+" msg:"+msg);
+    public static void sendMsg(final Handler handError, String token, String secret,String atMobiles,Boolean atAll, String msg) throws Exception {
+        Log.i(TAG, "sendMsg token:"+token+" secret:"+secret+" atMobiles:"+atMobiles+" atAll:"+atAll+" msg:"+msg);
 
         if (token == null || token.isEmpty()) {
             return;
@@ -97,8 +104,40 @@ public class SenderDingdingMsg {
 
         }
 
-        final String msgf = msg;
-        String textMsg = "{ \"msgtype\": \"text\", \"text\": {\"content\": \"" + msg + "\"}}";
+        Map textMsgMap =new HashMap();
+        textMsgMap.put("msgtype","text");
+        Map textText=new HashMap();
+        textText.put("content",msg);
+        textMsgMap.put("text",textText);
+        if(atMobiles != null || atAll !=null){
+            Map AtMap=new HashMap();
+            if(atMobiles!=null){
+                String[] atMobilesArray = atMobiles.split(",");
+                List<String> atMobilesList=new ArrayList<>();
+                for (String atMobile:atMobilesArray
+                     ) {
+                    if(TextUtils.isDigitsOnly(atMobile)){
+                        atMobilesList.add(atMobile);
+                    }
+                }
+                if(!atMobilesList.isEmpty()){
+                    AtMap.put("atMobiles",atMobilesList);
+
+                }
+            }
+
+            AtMap.put("isAtAll",false);
+            if(atAll !=null){
+                AtMap.put("isAtAll",atAll);
+
+            }
+
+            textMsgMap.put("at",AtMap);
+        }
+
+        String textMsg = JSON.toJSONString(textMsgMap);
+        Log.i(TAG, "textMsg:" + textMsg);
+
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),
                 textMsg);
@@ -113,8 +152,6 @@ public class SenderDingdingMsg {
             @Override
             public void onFailure(Call call, final IOException e) {
                 Log.d(TAG, "onFailure：" + e.getMessage());
-
-//                SendHistory.addHistory("钉钉转发:"+msgf+"onFailure：" + e.getMessage());
 
                 if(handError != null){
                     android.os.Message msg = new android.os.Message();
@@ -143,7 +180,6 @@ public class SenderDingdingMsg {
                     Log.d(TAG, "Coxxyyde：" + String.valueOf(response.code()) + responseStr);
                 }
 
-//                SendHistory.addHistory("钉钉转发:"+msgf+"Code：" + String.valueOf(response.code())+responseStr);
             }
         });
     }
