@@ -162,10 +162,10 @@ public class SenderActivity extends AppCompatActivity {
         if (dingDingSettingVo != null)
             editTextDingdingSecret.setText(dingDingSettingVo.getSecret());
         final EditText editTextDingdingAtMobiles = view1.findViewById(R.id.editTextDingdingAtMobiles);
-        if (dingDingSettingVo != null)
+        if (dingDingSettingVo != null && dingDingSettingVo.getAtMobils()!=null)
             editTextDingdingAtMobiles.setText(dingDingSettingVo.getAtMobils());
         final Switch switchDingdingAtAll = view1.findViewById(R.id.switchDingdingAtAll);
-        if (dingDingSettingVo != null)
+        if (dingDingSettingVo != null && dingDingSettingVo.getAtAll()!=null)
             switchDingdingAtAll.setChecked(dingDingSettingVo.getAtAll());
 
         Button buttondingdingok = view1.findViewById(R.id.buttondingdingok);
