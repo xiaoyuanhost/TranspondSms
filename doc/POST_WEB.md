@@ -3,6 +3,8 @@
 url:
 https://api.sl.allmything.com/api/msg/pushMsg?token=p9EM2K4Po01UIJr3sISbRmBFYWCHOGQaqwqk6cgxdsfyevTXtz8hVUlNAunD5i
 
+#### 有一个已经实现好的站点[消息通知](https://msg.allmything.com)
+
 ### 请求体如下
 > post form
 参数：
@@ -84,5 +86,4 @@ print(sign)
 
 ```
 
-#### 有一个已经实现好的站点[消息通知](https://msg.allmything.com)
 

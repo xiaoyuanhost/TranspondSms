@@ -1,4 +1,4 @@
-# 信息转发 TranspondSms， 把Android手动的短信通过邮件或者钉钉转出去
+# 短信转发 信息转发 TranspondSms， 把Android手动的短信通过邮件或者钉钉转出去
 
 
 博文连接[https://www.jianshu.com/p/608d1b1477e3]  
