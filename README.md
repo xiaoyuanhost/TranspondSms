@@ -52,7 +52,7 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 *注：该APP打开后会自动后台运行并在任务栏显示运行图标，请勿强杀，退出后请重新开启，并加入到系统白名单中，并允许后台运行*  
 
 
-### 应用截图：
+### 应用截图：[看不了图去码云](https://gitee.com/timsengit/TranspondSms)
 
 ![主界面](pic/main.jpg "应用主界面")
 ![转发详情](pic/maindetail.jpg "转发详情")
