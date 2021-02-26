@@ -68,6 +68,8 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
+> [v3.5.2](app/release/TSMS_release_20210226_3.5.2.apk) 1，修复Post通知验签。2，修复Post通知允许http
+
 > [v3.5.0](app/release/TSMS_release_20210126_3.5.0.apk) 1，钉钉机器人添加 @ 功能
 
 > [v3.4.0](pic/TSMS_release_20210120_3.4.0.apk) 1，增加企业微信群机器人通知。2，修复设置开机启动崩溃
