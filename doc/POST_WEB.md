@@ -13,6 +13,7 @@ https://api.sl.allmything.com/api/msg/pushMsg?token=p9EM2K4Po01UIJr3sISbRmBFYWCH
 |  ----  | ----  | ----  |
 | from  | string  | 来源手机号 |
 | content  | string  | 短信内容 |
+| timestamp  | string |  当前时间戳，单位是毫秒，（建议验证与请求调用时间误差不能超过1小时，防止重放欺骗） |
 | sign  | string  | 当设置secret时，生成的sign签名，用于发送端校验，规则见下方sign校验规则 |
 
 * sign部分参考借鉴了[阿里钉钉群机器人的sign生成](https://developers.dingtalk.com/document/app/custom-robot-access)  
