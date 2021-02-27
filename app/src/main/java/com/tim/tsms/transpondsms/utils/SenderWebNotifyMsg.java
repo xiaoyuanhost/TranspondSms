@@ -49,6 +49,7 @@ public class SenderWebNotifyMsg {
             byte[] signData = mac.doFinal(stringToSign.getBytes("UTF-8"));
             String sign = URLEncoder.encode(new String(Base64.encode(signData, Base64.NO_WRAP)), "UTF-8");
             Log.i(TAG, "sign:" + sign);
+            builder.addFormDataPart("timestamp",String.valueOf(timestamp));
             builder.addFormDataPart("sign",sign);
         }
 
