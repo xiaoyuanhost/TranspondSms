@@ -1,6 +1,7 @@
 package com.tim.tsms.transpondsms.utils;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -15,14 +16,6 @@ import com.tim.tsms.transpondsms.model.vo.WebNotifySettingVo;
 
 import java.util.List;
 
-import static com.tim.tsms.transpondsms.model.RuleModel.CHECK_CONTAIN;
-import static com.tim.tsms.transpondsms.model.RuleModel.CHECK_END_WITH;
-import static com.tim.tsms.transpondsms.model.RuleModel.CHECK_IS;
-import static com.tim.tsms.transpondsms.model.RuleModel.CHECK_NOT_IS;
-import static com.tim.tsms.transpondsms.model.RuleModel.CHECK_START_WITH;
-import static com.tim.tsms.transpondsms.model.RuleModel.FILED_MSG_CONTENT;
-import static com.tim.tsms.transpondsms.model.RuleModel.FILED_PHONE_NUM;
-import static com.tim.tsms.transpondsms.model.RuleModel.FILED_TRANSPOND_ALL;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_DINGDING;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_EMAIL;
 import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_QYWX_GROUP_ROBOT;
@@ -61,87 +54,48 @@ public class SendUtil {
             SenderUtil.init(context);
             for (RuleModel ruleModel:rulelist
             ) {
-                boolean canSend=false;
-                //使用转发规则制定的字段 匹配
-                switch (ruleModel.getFiled()){
-                    case FILED_TRANSPOND_ALL:
-                        canSend=true;
-                        break;
-                    case FILED_PHONE_NUM:
-                        switch (ruleModel.getCheck()){
-                            case CHECK_IS:
-                                if(smsVo.getMobile()!=null && smsVo.getMobile().equals(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_NOT_IS:
-                                if(smsVo.getMobile()!=null && !smsVo.getMobile().equals(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_START_WITH:
-                                if(smsVo.getMobile()!=null && smsVo.getMobile().startsWith(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_END_WITH:
-                                if(smsVo.getMobile()!=null && smsVo.getMobile().endsWith(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_CONTAIN:
-                                if(smsVo.getMobile()!=null && smsVo.getMobile().contains(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                        }
-                        break;
-                    case FILED_MSG_CONTENT:
-                        switch (ruleModel.getCheck()){
-                            case CHECK_IS:
-                                if(smsVo.getContent()!=null && smsVo.getContent().equals(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_NOT_IS:
-                                if(smsVo.getContent()!=null && !smsVo.getContent().equals(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_START_WITH:
-                                if(smsVo.getContent()!=null && smsVo.getContent().startsWith(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_END_WITH:
-                                if(smsVo.getContent()!=null && smsVo.getContent().endsWith(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                            case CHECK_CONTAIN:
-                                if(smsVo.getContent()!=null && smsVo.getContent().contains(ruleModel.getValue())){
-                                    canSend=true;
-                                }
-                                break;
-                        }
-                        break;
-
-                }
                 //规则匹配发现需要发送
-                if(canSend){
-                    List<SenderModel> senderModels = SenderUtil.getSender(ruleModel.getSenderId(),null);
-                    for (SenderModel senderModel:senderModels
-                    ) {
-                        LogUtil.addLog(new LogModel(smsVo.getMobile(),smsVo.getContent(),senderModel.getId()));
-                        SendUtil.senderSendMsg(smsVo,senderModel);
+                try{
+                    if(ruleModel.checkMsg(smsVo)){
+                        List<SenderModel> senderModels = SenderUtil.getSender(ruleModel.getSenderId(),null);
+                        for (SenderModel senderModel:senderModels
+                        ) {
+                            LogUtil.addLog(new LogModel(smsVo.getMobile(),smsVo.getContent(),senderModel.getId()));
+                            SendUtil.senderSendMsgNoHandError(smsVo,senderModel);
+                        }
                     }
+                }catch (Exception e){
+                    Log.e(TAG, "send_msg: fail checkMsg:",e);
                 }
+
 
             }
 
         }
     }
-    public static void senderSendMsg(SmsVo smsVo,SenderModel senderModel) {
+    public static void sendMsgByRuleModelSenderId(final Handler handError, RuleModel ruleModel,SmsVo smsVo, Long senderId) throws Exception {
+        if(senderId==null){
+            throw new Exception("先新建并选择发送方");
+        }
+
+        if(!ruleModel.checkMsg(smsVo)){
+            throw new Exception("短信未匹配中规则");
+        }
+
+        List<SenderModel> senderModels = SenderUtil.getSender(senderId,null);
+        if(senderModels.isEmpty()){
+            throw new Exception("未找到发送方");
+        }
+
+        for (SenderModel senderModel:senderModels
+        ) {
+            SendUtil.senderSendMsg(handError,smsVo,senderModel);
+        }
+    }
+    public static void senderSendMsgNoHandError(SmsVo smsVo,SenderModel senderModel) {
+        SendUtil.senderSendMsg(null,smsVo,senderModel);
+    }
+    public static void senderSendMsg(Handler handError,SmsVo smsVo, SenderModel senderModel) {
 
         Log.i(TAG, "senderSendMsg smsVo:"+smsVo+"senderModel:"+senderModel);
         switch (senderModel.getType()){
@@ -151,7 +105,7 @@ public class SendUtil {
                     DingDingSettingVo dingDingSettingVo = JSON.parseObject(senderModel.getJsonSetting(), DingDingSettingVo.class);
                     if(dingDingSettingVo!=null){
                         try {
-                            SenderDingdingMsg.sendMsg(null, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(),dingDingSettingVo.getAtMobils(),dingDingSettingVo.getAtAll(), smsVo.getSmsVoForSend());
+                            SenderDingdingMsg.sendMsg(handError, dingDingSettingVo.getToken(), dingDingSettingVo.getSecret(),dingDingSettingVo.getAtMobils(),dingDingSettingVo.getAtAll(), smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: dingding error "+e.getMessage() );
                         }
@@ -166,7 +120,7 @@ public class SendUtil {
                     EmailSettingVo emailSettingVo = JSON.parseObject(senderModel.getJsonSetting(), EmailSettingVo.class);
                     if(emailSettingVo!=null){
                         try {
-                            SenderMailMsg.sendEmail(null, emailSettingVo.getHost(),emailSettingVo.getPort(),emailSettingVo.getSsl(),emailSettingVo.getFromEmail(),
+                            SenderMailMsg.sendEmail(handError, emailSettingVo.getHost(),emailSettingVo.getPort(),emailSettingVo.getSsl(),emailSettingVo.getFromEmail(),
                                     emailSettingVo.getPwd(),emailSettingVo.getToEmail(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderMailMsg error "+e.getMessage() );
@@ -182,7 +136,7 @@ public class SendUtil {
                     WebNotifySettingVo webNotifySettingVo = JSON.parseObject(senderModel.getJsonSetting(), WebNotifySettingVo.class);
                     if(webNotifySettingVo!=null){
                         try {
-                            SenderWebNotifyMsg.sendMsg(null,webNotifySettingVo.getToken(),webNotifySettingVo.getSecret(),smsVo.getMobile(),smsVo.getSmsVoForSend());
+                            SenderWebNotifyMsg.sendMsg(handError,webNotifySettingVo.getToken(),webNotifySettingVo.getSecret(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderWebNotifyMsg error "+e.getMessage() );
                         }
@@ -197,7 +151,7 @@ public class SendUtil {
                     QYWXGroupRobotSettingVo qywxGroupRobotSettingVo = JSON.parseObject(senderModel.getJsonSetting(), QYWXGroupRobotSettingVo.class);
                     if(qywxGroupRobotSettingVo!=null){
                         try {
-                            SenderQyWxGroupRobotMsg.sendMsg(null,qywxGroupRobotSettingVo.getWebHook(),smsVo.getMobile(),smsVo.getSmsVoForSend());
+                            SenderQyWxGroupRobotMsg.sendMsg(handError,qywxGroupRobotSettingVo.getWebHook(),smsVo.getMobile(),smsVo.getSmsVoForSend());
                         }catch (Exception e){
                             Log.e(TAG, "senderSendMsg: SenderQyWxGroupRobotMsg error "+e.getMessage() );
                         }

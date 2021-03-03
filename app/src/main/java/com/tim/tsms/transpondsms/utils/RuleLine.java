@@ -111,13 +111,19 @@ class RuleLine{
                 checked=this.value.equals(msgValue);
                 break;
             case CHECK_CONTAIN:
-                checked=this.value.contains(msgValue);
+                if(msgValue!=null){
+                    checked=msgValue.contains(this.value);
+                }
                 break;
             case CHECK_START_WITH:
-                checked=this.value.startsWith(msgValue);
+                if(msgValue!=null){
+                    checked=msgValue.startsWith(this.value);
+                }
                 break;
             case CHECK_END_WITH:
-                checked=this.value.endsWith(msgValue);
+                if(msgValue!=null){
+                    checked=msgValue.endsWith(this.value);
+                }
                 break;
             default:
                 break;

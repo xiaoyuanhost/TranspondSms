@@ -12,4 +12,7 @@
     <string name="setqywxgrouprobottitle">设置企业微信群机器人</string>
     <string name="check_new_version">检查更新</string>
     <string name="to_setting">设置</string>
+
+    <string name="rule_tips">点击添加新建规则，长按删除，点击已有项进行更新</string>
+    <string name="sender_tips">点击添加新建规则，长按删除，点击已有项进行更新</string>
 </resources>

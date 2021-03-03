@@ -14,64 +14,61 @@ public class RuleLineUtils {
     static Boolean STARTLOG = true;
 
     public static void main(String[] args) throws Exception {
-        String a="并且 是 手机号 相等 10086\n" +
-                 " 或者 是 手机号 结尾 哈哈哈\n" +
-                 "  并且 是 短信内容 包含 asfas\n" +
-                 " 或者 是 手机号 结尾 aaaa\n" +
-                 "并且 是 手机号 相等 100861\n"+
-                 "并且 是 手机号 相等 100861";
+        String a = "并且 是 手机号 相等 10086\n" +
+                " 或者 是 手机号 结尾 哈哈哈\n" +
+                "  并且 是 短信内容 包含 asfas\n" +
+                " 或者 是 手机号 结尾 aaaa\n" +
+                "并且 是 手机号 相等 100861\n" +
+                "并且 是 手机号 相等 100861";
 
-        SmsVo msg=new SmsVo("10086","哈哈哈",new Date());
-        logg("check:"+checkRuleLines(msg,a));
+        SmsVo msg = new SmsVo("10086", "哈哈哈", new Date());
+        logg("check:" + checkRuleLines(msg, a));
     }
 
-    public static void startLog(boolean startLog){
-        STARTLOG=startLog;
+    public static void startLog(boolean startLog) {
+        STARTLOG = startLog;
     }
-    public static void logg(String msg){
-        if(STARTLOG){
+
+    public static void logg(String msg) {
+        if (STARTLOG) {
             Log.i(TAG, msg);
         }
 
     }
 
-    public static boolean checkRuleLines(SmsVo msg,String RuleLines) throws Exception {
+    public static boolean checkRuleLines(SmsVo msg, String RuleLines) throws Exception {
 
-        try(Scanner scanner = new Scanner(RuleLines)) {
+        Scanner scanner = new Scanner(RuleLines);
 
-            int linenum=0;
-            RuleLine headRuleLine=null;
+        int linenum = 0;
+        RuleLine headRuleLine = null;
 
-            RuleLine beforeRuleLine=null;
+        RuleLine beforeRuleLine = null;
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                logg(linenum+" : "+line);
-                //第一行
-                if(linenum==0){
-                    //第一行不允许缩进
-                    if(line.startsWith(" ")){
-                        throw new Exception("第一行不允许缩进");
-                    }
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            logg(linenum + " : " + line);
+            //第一行
+            if (linenum == 0) {
+                //第一行不允许缩进
+                if (line.startsWith(" ")) {
+                    throw new Exception("第一行不允许缩进");
                 }
-
-                // process the line
-
-
-                beforeRuleLine= RuleLineUtils.generateRuleTree(line,linenum,beforeRuleLine);
-                if(linenum==0){
-                    headRuleLine=beforeRuleLine;
-                }
-
-                linenum++;
             }
 
-            return checkRuleTree(msg,headRuleLine);
+            // process the line
 
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            beforeRuleLine = RuleLineUtils.generateRuleTree(line, linenum, beforeRuleLine);
+            if (linenum == 0) {
+                headRuleLine = beforeRuleLine;
+            }
+
+            linenum++;
         }
-        return false;
+
+        return checkRuleTree(msg, headRuleLine);
+
     }
 
 
@@ -81,22 +78,22 @@ public class RuleLineUtils {
      * 递归检查
      */
 
-    public static boolean checkRuleTree(SmsVo msg,RuleLine currentRuleLine) throws Exception {
+    public static boolean checkRuleTree(SmsVo msg, RuleLine currentRuleLine) throws Exception {
         //该节点是否命中
-        boolean currentAll=currentRuleLine.checkMsg(msg);
-        logg("current:"+currentRuleLine+" checked:"+currentAll);
+        boolean currentAll = currentRuleLine.checkMsg(msg);
+        logg("current:" + currentRuleLine + " checked:" + currentAll);
 
         //该节点子结点（如果有的话）是否命中
-        if(currentRuleLine.getChildRuleLine()!=null){
-            logg(" child:"+currentRuleLine.getChildRuleLine());
+        if (currentRuleLine.getChildRuleLine() != null) {
+            logg(" child:" + currentRuleLine.getChildRuleLine());
 
             //根据情况连接结果
-            switch (currentRuleLine.getChildRuleLine().conjunction){
+            switch (currentRuleLine.getChildRuleLine().conjunction) {
                 case CONJUNCTION_AND:
-                    currentAll= currentAll && checkRuleTree(msg,currentRuleLine.getChildRuleLine());
+                    currentAll = currentAll && checkRuleTree(msg, currentRuleLine.getChildRuleLine());
                     break;
                 case CONJUNCTION_OR:
-                    currentAll= currentAll || checkRuleTree(msg,currentRuleLine.getChildRuleLine());
+                    currentAll = currentAll || checkRuleTree(msg, currentRuleLine.getChildRuleLine());
                     break;
                 default:
                     throw new Exception("child wrong conjunction");
@@ -104,15 +101,15 @@ public class RuleLineUtils {
         }
 
         //该节点下节点（如果有的话）是否命中
-        if(currentRuleLine.getNextRuleLine()!=null){
-            logg("next:"+currentRuleLine.getNextRuleLine());
+        if (currentRuleLine.getNextRuleLine() != null) {
+            logg("next:" + currentRuleLine.getNextRuleLine());
             //根据情况连接结果
-            switch (currentRuleLine.getNextRuleLine().conjunction){
+            switch (currentRuleLine.getNextRuleLine().conjunction) {
                 case CONJUNCTION_AND:
-                    currentAll= currentAll && checkRuleTree(msg,currentRuleLine.getNextRuleLine());
+                    currentAll = currentAll && checkRuleTree(msg, currentRuleLine.getNextRuleLine());
                     break;
                 case CONJUNCTION_OR:
-                    currentAll= currentAll || checkRuleTree(msg,currentRuleLine.getNextRuleLine());
+                    currentAll = currentAll || checkRuleTree(msg, currentRuleLine.getNextRuleLine());
                     break;
                 default:
                     throw new Exception("next wrong conjunction");
@@ -128,9 +125,9 @@ public class RuleLineUtils {
      */
 
     public static RuleLine generateRuleTree(String line, int lineNum, RuleLine parentRuleLine) throws Exception {
-        String[] words=line.split(" ");
+        String[] words = line.split(" ");
 
-        return new RuleLine(line,lineNum,parentRuleLine);
+        return new RuleLine(line, lineNum, parentRuleLine);
     }
 
 }
