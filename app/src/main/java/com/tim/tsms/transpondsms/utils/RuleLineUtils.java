@@ -11,7 +11,7 @@ import static com.tim.tsms.transpondsms.utils.RuleLine.CONJUNCTION_OR;
 
 public class RuleLineUtils {
     static String TAG = "RuleLineUtils";
-    static Boolean STARTLOG = true;
+    static Boolean STARTLOG = false;
 
     public static void main(String[] args) throws Exception {
         String a = "并且 是 手机号 相等 10086\n" +
