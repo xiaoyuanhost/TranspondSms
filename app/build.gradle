@@ -10,8 +10,8 @@ android {
         applicationId "com.tim.tsms.transpondsms"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 353
-        versionName "3.5.3"
+        versionCode 354
+        versionName "3.5.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
