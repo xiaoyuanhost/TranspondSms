@@ -50,7 +50,9 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 
 
 *注：该APP打开后会自动后台运行并在任务栏显示运行图标，请勿强杀，退出后请重新开启，并加入到系统白名单中，并允许后台运行*  
-
+### QQ交流群 793283514
+![QQ交流群](pic/tsmsqq.jpg "QQ交流群")
+###  [百度贴吧](https://tieba.baidu.com/f?kw=tsms)
 
 ### 应用截图：[看不了图去码云](https://gitee.com/timsengit/TranspondSms)
 
