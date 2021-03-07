@@ -1,148 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_margin="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置名称" />
-
-        <EditText
-            android:id="@+id/editTextDingdingName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:ems="10"
-            android:inputType=""
-            android:text="" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_margin="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置Token 例如 https://oapi.dingtalk.com/robot/send?access_token=XXXXXX" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置名称" />
+
+            <EditText
+                android:id="@+id/editTextDingdingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:ems="10"
+                android:inputType=""
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置Token 例如 https://oapi.dingtalk.com/robot/send?access_token=XXXXXX" />
 
 
-        <EditText
-            android:id="@+id/editTextDingdingToken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:ems="10"
-            android:inputType=""
-            android:text="" />
+            <EditText
+                android:id="@+id/editTextDingdingToken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:ems="10"
+                android:inputType=""
+                android:text="" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加签 Secret 没有可不填" />
+
+
+            <EditText
+                android:id="@+id/editTextDingdingSecret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:ems="10"
+                android:inputType=""
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="转发时@某人 填写某人的手机号，多个用逗号分开 例如：18888888888,19999999999" />
+
+
+            <EditText
+                android:id="@+id/editTextDingdingAtMobiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:ems="10"
+                android:inputType=""
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="是否@所有人。" />
+
+            <Switch
+                android:id="@+id/switchDingdingAtAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:checked="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttondingdingok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:text="@string/ok" />
+
+            <Button
+                android:id="@+id/buttondingdingdel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:text="@string/del" />
+
+            <Button
+                android:id="@+id/buttondingdingtest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:text="@string/test" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_margin="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="加签 Secret 没有可不填" />
-
-
-        <EditText
-            android:id="@+id/editTextDingdingSecret"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:ems="10"
-            android:inputType=""
-            android:text="" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_margin="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="转发时@某人 填写某人的手机号，多个用逗号分开 例如：18888888888,19999999999" />
-
-
-        <EditText
-            android:id="@+id/editTextDingdingAtMobiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:ems="10"
-            android:inputType=""
-            android:text="" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="是否@所有人。" />
-
-        <Switch
-            android:id="@+id/switchDingdingAtAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:ems="10"
-            android:checked="false"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttondingdingok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:text="@string/ok" />
-
-        <Button
-            android:id="@+id/buttondingdingdel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:text="@string/del" />
-
-        <Button
-            android:id="@+id/buttondingdingtest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="1"
-            android:text="@string/test" />
-
-    </LinearLayout>
-
-
-
-</LinearLayout>
+</ScrollView>

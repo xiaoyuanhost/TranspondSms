@@ -70,8 +70,10 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
-> [v3.6.1](app/release/TSMS_release_20210303_3.6.0.apk) 1，添加多重规则。\r\n2，添加规则测试按钮。\r\n3，转发规则发送方列表页面支持长按删除。\r\n4，整合逻辑。\r\n5，修复部分错误文字。
->
+> [v3.6.2](app/release/TSMS_release_20210307_3.6.2.apk) 1，修复设置发送方、转发规则弹框分辨率页面遮挡问题。
+
+> [v3.6.1](app/release/TSMS_release_20210303_3.6.1.apk) 1，添加多重规则。\r\n2，添加规则测试按钮。\r\n3，转发规则发送方列表页面支持长按删除。\r\n4，整合逻辑。\r\n5，修复部分错误文字。
+
 > [v3.5.3](app/release/TSMS_release_20210227_3.5.3.apk) 1，修复Post通知验签
 
 > [v3.5.2](app/release/TSMS_release_20210226_3.5.2.apk) 1，修复Post通知验签。2，修复Post通知允许http
