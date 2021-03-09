@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +16,7 @@ import java.util.Map;
 import android.util.Base64;
 
 import com.alibaba.fastjson.JSON;
+import com.tim.tsms.transpondsms.utils.SettingUtil;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -28,7 +29,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 import static com.tim.tsms.transpondsms.SenderActivity.NOTIFY;
 
 public class SenderDingdingMsg {

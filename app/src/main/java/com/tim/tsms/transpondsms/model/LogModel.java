@@ -5,11 +5,13 @@ public class LogModel {
     private String content;
     private Long ruleId;
     private Long time;
+    private String jsonExtra;
 
-    public LogModel(String from, String content,Long ruleId) {
+    public LogModel(String from, String content,Long ruleId,String jsonExtra) {
         this.from = from;
         this.content = content;
         this.ruleId = ruleId;
+        this.jsonExtra = jsonExtra;
     }
 
     public String getFrom() {
@@ -40,6 +42,14 @@ public class LogModel {
         return time;
     }
 
+    public String getJsonExtra() {
+        return jsonExtra;
+    }
+
+    public void setJsonExtra(String jsonExtra) {
+        this.jsonExtra = jsonExtra;
+    }
+
     @Override
     public String toString() {
         return "LogModel{" +
@@ -47,6 +57,7 @@ public class LogModel {
                 ", content='" + content + '\'' +
                 ", ruleId=" + ruleId +
                 ", time=" + time +
+                ", jsonExtra=" + jsonExtra +
                 '}';
     }
 }

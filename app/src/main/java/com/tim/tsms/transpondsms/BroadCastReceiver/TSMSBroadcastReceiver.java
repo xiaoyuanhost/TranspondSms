@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import com.tim.tsms.transpondsms.model.vo.SmsExtraVo;
 import com.tim.tsms.transpondsms.model.vo.SmsVo;
-import com.tim.tsms.transpondsms.utils.SendUtil;
+import com.tim.tsms.transpondsms.utils.SettingUtil;
+import com.tim.tsms.transpondsms.utils.SimUtil;
+import com.tim.tsms.transpondsms.utils.sender.SendUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +25,22 @@ public class TSMSBroadcastReceiver  extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String receiveAction = intent.getAction();
         Log.d(TAG,"onReceive intent "+receiveAction);
-        if(receiveAction.equals("android.provider.Telephony.SMS_RECEIVED")){
+        if("android.provider.Telephony.SMS_RECEIVED".equals(receiveAction)){
             try {
+
+                SmsExtraVo smsExtraVo=new SmsExtraVo();
+
+                if(SettingUtil.getSwitchAddExtra()){
+                    int simId = SimUtil.getSimId(intent.getExtras());
+                    smsExtraVo.setSimId(simId);
+                    smsExtraVo.setDeviceMark(SettingUtil.getAddExtraDeviceMark());
+                    if(simId==1){
+                        smsExtraVo.setSimDesc(SettingUtil.getAddExtraSim1());
+                    }
+                    if(simId==2){
+                        smsExtraVo.setSimDesc(SettingUtil.getAddExtraSim2());
+                    }
+                }
 
                 Object[] object=(Object[]) Objects.requireNonNull(intent.getExtras()).get("pdus");
                 if(object!=null){
@@ -49,7 +66,7 @@ public class TSMSBroadcastReceiver  extends BroadcastReceiver {
 
                     }
                     for (String mobile:mobileToContent.keySet()){
-                        smsVoList.add(new SmsVo(mobile,mobileToContent.get(mobile),date));
+                        smsVoList.add(new SmsVo(mobile,mobileToContent.get(mobile),date,smsExtraVo));
                     }
                     Log.d(TAG,"短信："+smsVoList);
                     SendUtil.send_msg_list(context,smsVoList);

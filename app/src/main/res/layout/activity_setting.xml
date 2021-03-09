@@ -4,162 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="20dp"
-                >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="当前版本" />
-                    <TextView
-                        android:id="@+id/version_now"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="v1.0"/>
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/check_version_now"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="检查新版本" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:id="@+id/auto_reboot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="开机启动" />
-                <Switch
-                    android:id="@+id/switch_with_reboot"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="end"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:id="@+id/about_web"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="官网"/>
-
-                <TextView
-                    android:id="@+id/linkweb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="right"
-                    android:autoLink="web"
-                    android:text="tsms.allmything.com"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:id="@+id/ll_wait_open_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="用户交流群" />
-
-                <TextView
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
-                    android:id="@+id/tv_wait_open_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:textIsSelectable="true"
-                    android:text="793283514" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:id="@+id/feedback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="建议反馈" />
-
-                <TextView
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
-                    android:id="@+id/feedback_commit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:onClick="feedbackcommit"
-                    android:text="提交反馈" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -198,13 +51,6 @@
                     android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="20dp">
-                    <Switch
-                        android:id="@+id/switch_add_extra_device"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="start"
-                        android:textSize="18sp" />
                     <TextView
                         android:layout_weight="3"
                         android:layout_width="0dp"
@@ -212,9 +58,10 @@
                         android:text="设备名称" />
 
                     <EditText
+                        android:id="@+id/et_add_extra_device_mark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="设备名称">
+                        android:text="公司红色白皮手机">
 
                     </EditText>
 
@@ -228,23 +75,17 @@
                     android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="20dp">
-                    <Switch
-                        android:id="@+id/switch_add_extra_sim1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="start"
-                        android:textSize="18sp" />
                     <TextView
                         android:layout_weight="3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="卡一" />
+                        android:text="卡一备注" />
 
                     <EditText
+                        android:id="@+id/et_add_extra_sim1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="卡一">
+                        android:text="人事小姐姐卡">
 
                     </EditText>
 
@@ -258,23 +99,17 @@
                     android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="20dp">
-                    <Switch
-                        android:id="@+id/switch_add_extra_sim2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="start"
-                        android:textSize="18sp" />
                     <TextView
                         android:layout_weight="3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="卡二" />
+                        android:text="卡二备注" />
 
                     <EditText
+                        android:id="@+id/et_add_extra_sim2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="卡二">
+                        android:text="客服手机卡18888888888">
 
                     </EditText>
 
@@ -282,8 +117,6 @@
 
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>

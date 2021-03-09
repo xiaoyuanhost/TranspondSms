@@ -20,10 +20,11 @@ import android.widget.Toast;
 import com.tim.tsms.transpondsms.adapter.RuleAdapter;
 import com.tim.tsms.transpondsms.model.RuleModel;
 import com.tim.tsms.transpondsms.model.SenderModel;
+import com.tim.tsms.transpondsms.model.vo.SmsExtraVo;
 import com.tim.tsms.transpondsms.model.vo.SmsVo;
 import com.tim.tsms.transpondsms.utils.RuleUtil;
-import com.tim.tsms.transpondsms.utils.SendUtil;
-import com.tim.tsms.transpondsms.utils.SenderUtil;
+import com.tim.tsms.transpondsms.utils.sender.SendUtil;
+import com.tim.tsms.transpondsms.utils.sender.SenderUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -325,7 +326,7 @@ public class RuleActivity extends AppCompatActivity {
                 Log.i("editTextTestMsgContent", editTextTestMsgContent.getText().toString());
 
                 try{
-                    SmsVo testSmsVo=new SmsVo(editTextTestPhone.getText().toString(),editTextTestMsgContent.getText().toString(),new Date());
+                    SmsVo testSmsVo=new SmsVo(editTextTestPhone.getText().toString(),editTextTestMsgContent.getText().toString(),new Date(),new SmsExtraVo(1,"卡哇伊","红色白皮手机"));
                     SendUtil.sendMsgByRuleModelSenderId(handler,ruleModel,testSmsVo,senderId);
 
                 }catch (Exception e){

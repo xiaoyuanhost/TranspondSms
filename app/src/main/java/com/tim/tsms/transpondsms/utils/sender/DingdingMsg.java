@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import android.util.Log;
 
@@ -6,6 +6,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.URLEncoder;
 import android.util.Base64;
+
+import com.tim.tsms.transpondsms.utils.SettingUtil;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

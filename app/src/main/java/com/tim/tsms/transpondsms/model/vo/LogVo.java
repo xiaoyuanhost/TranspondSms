@@ -6,13 +6,15 @@ public class LogVo {
     private String rule;
     private int senderImageId;
     private String time;
+    private String jsonExtra;
 
-    public LogVo(String from, String content, String time, String rule,int senderImageId) {
+    public LogVo(String from, String content, String time, String rule,int senderImageId,String jsonExtra) {
         this.from = from;
         this.content = content;
         this.time = time;
         this.rule = rule;
         this.senderImageId = senderImageId;
+        this.jsonExtra = jsonExtra;
     }
 
     public LogVo() {
@@ -51,7 +53,27 @@ public class LogVo {
         return senderImageId;
     }
 
+    public String getJsonExtra() {
+        return jsonExtra;
+    }
+
+    public void setJsonExtra(String jsonExtra) {
+        this.jsonExtra = jsonExtra;
+    }
+
     public void setSenderImageId(int senderImageId) {
         this.senderImageId = senderImageId;
+    }
+
+    @Override
+    public String toString() {
+        return "LogVo{" +
+                "from='" + from + '\'' +
+                ", content='" + content + '\'' +
+                ", rule='" + rule + '\'' +
+                ", senderImageId=" + senderImageId +
+                ", time='" + time + '\'' +
+                ", jsonExtra='" + jsonExtra + '\'' +
+                '}';
     }
 }

@@ -22,11 +22,11 @@ import com.tim.tsms.transpondsms.model.vo.DingDingSettingVo;
 import com.tim.tsms.transpondsms.model.vo.EmailSettingVo;
 import com.tim.tsms.transpondsms.model.vo.QYWXGroupRobotSettingVo;
 import com.tim.tsms.transpondsms.model.vo.WebNotifySettingVo;
-import com.tim.tsms.transpondsms.utils.SenderDingdingMsg;
-import com.tim.tsms.transpondsms.utils.SenderMailMsg;
-import com.tim.tsms.transpondsms.utils.SenderQyWxGroupRobotMsg;
-import com.tim.tsms.transpondsms.utils.SenderUtil;
-import com.tim.tsms.transpondsms.utils.SenderWebNotifyMsg;
+import com.tim.tsms.transpondsms.utils.sender.SenderDingdingMsg;
+import com.tim.tsms.transpondsms.utils.sender.SenderMailMsg;
+import com.tim.tsms.transpondsms.utils.sender.SenderQyWxGroupRobotMsg;
+import com.tim.tsms.transpondsms.utils.sender.SenderUtil;
+import com.tim.tsms.transpondsms.utils.sender.SenderWebNotifyMsg;
 import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;

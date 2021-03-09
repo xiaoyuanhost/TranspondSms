@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.tim.tsms.transpondsms.model.SenderModel;
 import com.tim.tsms.transpondsms.model.SenderTable;
+import com.tim.tsms.transpondsms.utils.DbHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;

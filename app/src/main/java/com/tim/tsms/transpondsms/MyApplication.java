@@ -9,7 +9,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tim.tsms.transpondsms.utils.SendHistory;
+import com.tim.tsms.transpondsms.utils.sender.SendHistory;
 import com.tim.tsms.transpondsms.utils.SettingUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;

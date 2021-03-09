@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.tim.tsms.transpondsms.R;
 import com.tim.tsms.transpondsms.model.RuleModel;
 import com.tim.tsms.transpondsms.model.SenderModel;
-import com.tim.tsms.transpondsms.utils.SenderUtil;
+import com.tim.tsms.transpondsms.utils.sender.SenderUtil;
 
 import java.util.List;
 

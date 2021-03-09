@@ -1,9 +1,11 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import android.util.Log;
 
+import com.tim.tsms.transpondsms.utils.Define;
+import com.tim.tsms.transpondsms.utils.SettingUtil;
+
 import java.io.File;
-import java.util.StringTokenizer;
 
 
 public class SendMailUtil {

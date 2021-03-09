@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import java.util.Properties;
 

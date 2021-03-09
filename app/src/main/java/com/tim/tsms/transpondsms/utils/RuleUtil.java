@@ -104,7 +104,7 @@ public class RuleUtil {
 
         if(key!=null){
             // Define 'where' part of query.
-            selection =" and (" +  RuleTable.RuleEntry.COLUMN_NAME_VALUE + " LIKE ? ";
+            selection =" and (" +  RuleTable.RuleEntry.COLUMN_NAME_VALUE + " LIKE ? )";
             // Specify arguments in placeholder order.
             selectionArgList.add(key);
         }

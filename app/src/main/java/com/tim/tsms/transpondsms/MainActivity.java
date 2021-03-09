@@ -16,32 +16,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 
+import com.alibaba.fastjson.JSON;
 import com.tim.tsms.transpondsms.BroadCastReceiver.TSMSBroadcastReceiver;
 import com.tim.tsms.transpondsms.adapter.LogAdapter;
-import com.tim.tsms.transpondsms.adapter.RuleAdapter;
-import com.tim.tsms.transpondsms.model.LogModel;
 import com.tim.tsms.transpondsms.model.vo.LogVo;
+import com.tim.tsms.transpondsms.model.vo.SmsExtraVo;
 import com.tim.tsms.transpondsms.utils.LogUtil;
-import com.tim.tsms.transpondsms.utils.RuleUtil;
-import com.tim.tsms.transpondsms.utils.SendHistory;
-import com.tim.tsms.transpondsms.utils.SendUtil;
-import com.tim.tsms.transpondsms.utils.UpdateAppHttpUtil;
-import com.tim.tsms.transpondsms.utils.aUtil;
 import com.umeng.analytics.MobclickAgent;
-import com.vector.update_app.UpdateAppManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
-import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_DINGDING;
-import static com.tim.tsms.transpondsms.model.SenderModel.TYPE_EMAIL;
 
 public class MainActivity extends AppCompatActivity implements ReFlashListView.IReflashListener {
 
@@ -135,8 +121,19 @@ public class MainActivity extends AppCompatActivity implements ReFlashListView.I
     public void logDetail(LogVo logVo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("详情");
-        builder.setMessage(logVo.getFrom()+"\n"+logVo.getContent()+"\n"+logVo.getRule()+"\n"+logVo.getTime());
+        SmsExtraVo smsExtraVo = JSON.parseObject(logVo.getJsonExtra(), SmsExtraVo.class);
+        String extraStr="";
+        if(smsExtraVo!=null && smsExtraVo.getSimDesc()!=null){
+            extraStr="卡："+smsExtraVo.getSimDesc()+"\n";
+        }
+
+        builder.setMessage(logVo.getFrom()+"\n"+logVo.getContent()+"\n"+logVo.getRule()+"\n"+extraStr+logVo.getTime());
         builder.show();
+    }
+
+    public void toAbout(){
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     public void toSetting(){
@@ -172,14 +169,6 @@ public class MainActivity extends AppCompatActivity implements ReFlashListView.I
 
     }
 
-    public void addLog(View view){
-        Log.d(TAG,"refreshLog");
-        LogModel newModel=new LogModel("199999","content"+(new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date())), 1l);
-        LogUtil.addLog(newModel);
-//        initTLogs();
-//        adapter.add(logVos);
-    }
-
     //按返回键不退出回到桌面
     @Override
     public void onBackPressed() {
@@ -210,6 +199,9 @@ public class MainActivity extends AppCompatActivity implements ReFlashListView.I
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.to_about:
+                toAbout();
+                return true;
             case R.id.to_setting:
                 toSetting();
                 return true;

@@ -65,11 +65,14 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 ![添加编辑发送方邮箱](pic/sendersetemail.jpg "添加编辑发送方邮箱")
 ![添加编辑发送方网页通知](pic/sendersetwebnotify.jpg "添加编辑发送方网页通知")
 ![状态栏运行状态](pic/taskbar.jpg "状态栏运行状态")
-![应用设置](pic/setting.jpg "应用设置")
+![应用设置](pic/setting.jpg "转发设置")
+![应用设置](pic/about.jpg "关于")
 ![意见反馈](pic/settingfeedback.jpg "意见反馈")
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
+> [v3.6.3](app/release/TSMS_release_20210309_3.6.3.apk) 1，转发消息添加设备和卡备注相关信息。
+
 > [v3.6.2](app/release/TSMS_release_20210307_3.6.2.apk) 1，修复设置发送方、转发规则弹框分辨率页面遮挡问题。
 
 > [v3.6.1](app/release/TSMS_release_20210303_3.6.1.apk) 1，添加多重规则。\r\n2，添加规则测试按钮。\r\n3，转发规则发送方列表页面支持长按删除。\r\n4，整合逻辑。\r\n5，修复部分错误文字。
@@ -95,7 +98,7 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 > v1.1 减少手动配置启动参数：自启动配置、自动开启热点配置（设置好后手机重启也不用重新打开了，还能自动为pad开启热点）
 <u>热点管理
 可设置跟随设备启动时启动热点，并且在热点关闭后10秒自动重启热点（所以想关闭热点先把设置页码的开启热点关掉）</u>
-(热点助手功能会在后期2020/07/29转移到单独的APP)详见[https://www.jianshu.com/p/f70cf475eddc]
+(热点助手功能会在后期2020/07/29转移到单独的APP)详见[https://linkhelper.allmything.com]
 
 > v1.0 项目初始化，实现转发
 

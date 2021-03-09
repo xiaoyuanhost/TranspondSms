@@ -1,4 +1,4 @@
-package com.tim.tsms.transpondsms.utils;
+package com.tim.tsms.transpondsms.utils.sender;
 
 import android.content.Context;
 import android.os.Handler;
@@ -13,6 +13,9 @@ import com.tim.tsms.transpondsms.model.vo.EmailSettingVo;
 import com.tim.tsms.transpondsms.model.vo.QYWXGroupRobotSettingVo;
 import com.tim.tsms.transpondsms.model.vo.SmsVo;
 import com.tim.tsms.transpondsms.model.vo.WebNotifySettingVo;
+import com.tim.tsms.transpondsms.utils.LogUtil;
+import com.tim.tsms.transpondsms.utils.RuleUtil;
+import com.tim.tsms.transpondsms.utils.SettingUtil;
 
 import java.util.List;
 
@@ -60,7 +63,7 @@ public class SendUtil {
                         List<SenderModel> senderModels = SenderUtil.getSender(ruleModel.getSenderId(),null);
                         for (SenderModel senderModel:senderModels
                         ) {
-                            LogUtil.addLog(new LogModel(smsVo.getMobile(),smsVo.getContent(),senderModel.getId()));
+                            LogUtil.addLog(new LogModel(smsVo.getMobile(),smsVo.getContent(),senderModel.getId(),JSON.toJSONString(smsVo.getSmsExtraVo())));
                             SendUtil.senderSendMsgNoHandError(smsVo,senderModel);
                         }
                     }
@@ -89,6 +92,8 @@ public class SendUtil {
 
         for (SenderModel senderModel:senderModels
         ) {
+             //test
+            //LogUtil.addLog(new LogModel(smsVo.getMobile(),smsVo.getContent(),senderModel.getId(),JSON.toJSONString(smsVo.getSmsExtraVo())));
             SendUtil.senderSendMsg(handError,smsVo,senderModel);
         }
     }

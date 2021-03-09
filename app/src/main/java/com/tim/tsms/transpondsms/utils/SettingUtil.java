@@ -22,6 +22,51 @@ public class SettingUtil {
         }
     }
 
+    public static void switchAddExtra(Boolean switchAddExtra){
+        Log.d(TAG,"switchAddExtra :"+switchAddExtra);
+        sp_setting.edit()
+                .putBoolean(Define.SP_MSG_KEY_SWITCH_ADD_EXTRA,switchAddExtra)
+                .apply();
+    }
+
+    public static boolean getSwitchAddExtra(){
+        return sp_setting.getBoolean(Define.SP_MSG_KEY_SWITCH_ADD_EXTRA,false);
+    }
+
+    public static void setAddExtraDeviceMark(String addExtraDeviceMark){
+        Log.d(TAG,"addExtraDeviceMark :"+addExtraDeviceMark);
+        sp_setting.edit()
+                .putString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_DEVICE_MARK,addExtraDeviceMark)
+                .apply();
+    }
+
+    public static String getAddExtraDeviceMark(){
+        return sp_setting.getString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_DEVICE_MARK,"公司红色白皮手机");
+    }
+
+    public static void setAddExtraSim1(String sim1){
+        Log.d(TAG,"sim1 :"+sim1);
+        sp_setting.edit()
+                .putString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_SIM1,sim1)
+                .apply();
+    }
+
+    public static String getAddExtraSim1(){
+        return sp_setting.getString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_SIM1,"人事小姐姐卡");
+    }
+
+    public static void setAddExtraSim2(String sim2){
+        Log.d(TAG,"sim2 :"+sim2);
+        sp_setting.edit()
+                .putString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_SIM2,sim2)
+                .apply();
+    }
+
+    public static String getAddExtraSim2(){
+        return sp_setting.getString(Define.SP_MSG_KEY_STRING_ADD_EXTRA_SIM2,"客服手机卡18888888888");
+    }
+
+
     public static boolean option_withreboot(){
         return sp_setting.getBoolean("option_withreboot",false);
     }

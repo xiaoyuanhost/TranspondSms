@@ -54,6 +54,7 @@ public class LogUtil {
         values.put(LogTable.LogEntry.COLUMN_NAME_FROM, logModel.getFrom());
         values.put(LogTable.LogEntry.COLUMN_NAME_CONTENT, logModel.getContent());
         values.put(LogTable.LogEntry.COLUMN_NAME_RULE_ID, logModel.getRuleId());
+        values.put(LogTable.LogEntry.COLUMN_NAME_JSON_EXTRA, logModel.getJsonExtra());
 
         // Insert the new row, returning the primary key value of the new row
 
@@ -94,6 +95,7 @@ public class LogUtil {
                 LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_FROM,
                 LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_TIME,
                 LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_CONTENT,
+                LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_JSON_EXTRA,
                 RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_FILED,
                 RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_CHECK,
                 RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_VALUE,
@@ -127,8 +129,8 @@ public class LogUtil {
         Cursor cursor = db.query(
                 // The table to query
                 LogTable.LogEntry.TABLE_NAME
-                        +" LEFT JOIN "+RuleTable.RuleEntry.TABLE_NAME+" ON "+LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_RULE_ID+"="+RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry._ID
-                        +" LEFT JOIN "+ SenderTable.SenderEntry.TABLE_NAME+" ON "+SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry._ID+"="+RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_SENDER_ID,
+                        +" JOIN "+RuleTable.RuleEntry.TABLE_NAME+" ON "+LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_RULE_ID+"="+RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry._ID
+                        +" JOIN "+ SenderTable.SenderEntry.TABLE_NAME+" ON "+SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry._ID+"="+RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_SENDER_ID,
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
                 selectionArgs,          // The values for the WHERE clause
@@ -145,28 +147,29 @@ public class LogUtil {
         while(cursor.moveToNext()) {
             try {
                 String itemfrom = cursor.getString(
-                        cursor.getColumnIndexOrThrow(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_FROM));
+                        cursor.getColumnIndex(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_FROM));
                 String content = cursor.getString(
-                        cursor.getColumnIndexOrThrow(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_CONTENT));
+                        cursor.getColumnIndex(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_CONTENT));
                 String time = cursor.getString(
-                        cursor.getColumnIndexOrThrow(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_TIME));
+                        cursor.getColumnIndex(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_TIME));
+                String jsonExtra = cursor.getString(
+                        cursor.getColumnIndex(LogTable.LogEntry.TABLE_NAME+"."+LogTable.LogEntry.COLUMN_NAME_JSON_EXTRA));
                 String ruleFiled = cursor.getString(
-                        cursor.getColumnIndexOrThrow(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_FILED));
+                        cursor.getColumnIndex(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_FILED));
                 String ruleCheck = cursor.getString(
-                        cursor.getColumnIndexOrThrow(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_CHECK));
+                        cursor.getColumnIndex(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_CHECK));
                 String ruleValue = cursor.getString(
-                        cursor.getColumnIndexOrThrow(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_VALUE));
+                        cursor.getColumnIndex(RuleTable.RuleEntry.TABLE_NAME+"."+RuleTable.RuleEntry.COLUMN_NAME_VALUE));
                 String senderName = cursor.getString(
-                        cursor.getColumnIndexOrThrow(SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry.COLUMN_NAME_NAME));
+                        cursor.getColumnIndex(SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry.COLUMN_NAME_NAME));
                 Integer senderType = cursor.getInt(
-                        cursor.getColumnIndexOrThrow(SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry.COLUMN_NAME_TYPE));
+                        cursor.getColumnIndex(SenderTable.SenderEntry.TABLE_NAME+"."+SenderTable.SenderEntry.COLUMN_NAME_TYPE));
 
                 Log.d(TAG, "getLog: time"+time);
                 String rule = RuleModel.getRuleMatch(ruleFiled,ruleCheck,ruleValue)+" 转发到 "+senderName;
 //                String rule = time+" 转发到 "+senderName;
                 int senderImageId = SenderModel.getImageId(senderType);
-                LogVo logVo = new LogVo(itemfrom,content,time,rule,senderImageId);
-
+                LogVo logVo = new LogVo(itemfrom,content,time,rule,senderImageId,jsonExtra);
                 LogVos.add(logVo);
             }catch (Exception e){
                 Log.i(TAG, "getLog e:"+e.getMessage());

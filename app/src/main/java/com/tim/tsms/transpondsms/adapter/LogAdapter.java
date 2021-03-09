@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.tim.tsms.transpondsms.R;
 import com.tim.tsms.transpondsms.model.vo.LogVo;
+import com.tim.tsms.transpondsms.model.vo.SmsExtraVo;
 
 import java.util.List;
 
@@ -67,8 +69,22 @@ public class LogAdapter extends ArrayAdapter<LogVo> {
         // 获取控件实例，并调用set...方法使其显示出来
         if(logVo!=null){
             viewHolder.tLogFrom.setText(logVo.getFrom());
-            viewHolder.tLogContent.setText(logVo.getContent());
             viewHolder.tLogRule.setText(logVo.getRule());
+            String extraStr="";
+            //try phrase json setting
+            String jsonExtraStr = logVo.getJsonExtra();
+            if (jsonExtraStr != null && !jsonExtraStr.isEmpty()) {
+                try {
+                    SmsExtraVo smsExtraVo = JSON.parseObject(jsonExtraStr, SmsExtraVo.class);
+                    if(smsExtraVo!=null && smsExtraVo.getSimDesc()!=null){
+                        extraStr="卡："+smsExtraVo.getSimDesc();
+
+                    }
+                }catch (Exception e){
+
+                }
+            }
+            viewHolder.tLogContent.setText(logVo.getContent()+"\n"+extraStr);
             viewHolder.senderImage.setImageResource(logVo.getSenderImageId());
         }
 
