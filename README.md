@@ -2,8 +2,8 @@
 
 
 博文连接[https://www.jianshu.com/p/608d1b1477e3]  
-官网[https://tsms.allmything.com]  
-APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
+官网论坛[http://tsms.allmything.com]  
+APP下载 [http://tsms.allmything.com/topic/3]
 
 
 
@@ -18,6 +18,7 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 > + 还有些其他的也是这些毛病
 * 省电：运行时只监听广播，有短信才执行转发，并记录最近n条的转发内容和转发状态
 * 健壮：越简单越不会出错（UNIX设计哲学），就越少崩溃，运行越稳定持久
+* 安全：依赖越简单，审查代码代价就越小，攻击面就越小
 
 ### 工作流程：
 ![工作流程](pic/showpic.png "工作流程")  
@@ -33,7 +34,9 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 | 转发企业微信群机器人  | 已实现 |
 | 转发web页面  | 单个web页面已实现（[向设置的url发送POST请求](doc/POST_WEB.md)） |
 | 转发规则  | （规则即：什么短信转发到哪里）已实现实现 |
-| 兼容  |  已兼容6.xx、7.xx、8.xx、9.xx、10.xx  |
+| 多重规则  | 可通过“并且”，“或者”，“不是”组合多个转发规则 |
+| 转发携带设备信息  | 转发的消息携带设备备注（自定义）和卡备注（可对卡槽自定义备注） |
+| 兼容  |  已兼容6.xx、7.xx、8.xx、9.xx、10.xx （详细兼容机型和Android版本见[社区总结](http://tsms.allmything.com/topic/2)） |
 
 
 ### 使用流程：
@@ -51,8 +54,8 @@ APP下载 [https://pan.baidu.com/s/1kbelTFIf5nwkOY9g6itkvA]
 
 *注：该APP打开后会自动后台运行并在任务栏显示运行图标，请勿强杀，退出后请重新开启，并加入到系统白名单中，并允许后台运行*  
 ### QQ交流群 793283514
+* 优先使用官网社区（翻QQ聊天记录太麻烦）
 ![QQ交流群](pic/tsmsqq.jpg "QQ交流群")
-###  [百度贴吧](https://tieba.baidu.com/f?kw=tsms)
 
 ### 应用截图：[看不了图去码云](https://gitee.com/timsengit/TranspondSms)
 
