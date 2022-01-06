@@ -21,11 +21,13 @@ import java.util.Objects;
 
 public class TSMSBroadcastReceiver  extends BroadcastReceiver {
     private String TAG = "TSMSBroadcastReceiver";
+    public static final String SMS_RECEIVED_ACTION = "android.provider.Telephony.SMS_RECEIVED";
+    public static final String SMS_DELIVER_ACTION = "android.provider.Telephony.SMS_DELIVER";
     @Override
     public void onReceive(Context context, Intent intent) {
         String receiveAction = intent.getAction();
         Log.d(TAG,"onReceive intent "+receiveAction);
-        if("android.provider.Telephony.SMS_RECEIVED".equals(receiveAction)){
+        if(SMS_RECEIVED_ACTION.equals(receiveAction) || SMS_DELIVER_ACTION.equals(receiveAction)){
             try {
 
                 SmsExtraVo smsExtraVo=new SmsExtraVo();
