@@ -51,6 +51,7 @@ public class SenderSocketMsg {
             return;
         }
         */
+
         // 构建消息体
         String textMsg = "{ \"title\": \"通知\", \"content\": \"" + msg + "\" }";
         Log.i(TAG, "sendMsg ipAddress:" + ipAddress + " port:" + portNumber + " msg:" + msg);
@@ -113,6 +114,7 @@ public class SenderSocketMsg {
         if (ipAddress == null || ipAddress.isEmpty()||port == null || port.isEmpty()) {
             return;  // 如果 IP 地址为空，则直接返回
         }
+      
         final int portNumber;
         portNumber = Integer.parseInt(port);
         Log.i(TAG, "sendMsg ipAddress:" + ipAddress + " port:" + portNumber + " msg:" + msg);
