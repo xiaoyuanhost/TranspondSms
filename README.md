@@ -74,6 +74,7 @@ APP下载 [http://tsms.allmything.com/topic/3]
 ![应用更新](pic/update-dingdingsecret.jpg "应用更新")
 
 ### 更新记录：
+> [v4.0版本] 筹备更新中
 > [v3.6.3](app/release/TSMS_release_20210309_3.6.3.apk) 1，转发消息添加设备和卡备注相关信息。
 
 > [v3.6.2](app/release/TSMS_release_20210307_3.6.2.apk) 1，修复设置发送方、转发规则弹框分辨率页面遮挡问题。
