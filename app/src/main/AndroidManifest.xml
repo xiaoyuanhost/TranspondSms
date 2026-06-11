@@ -45,7 +45,10 @@
         <receiver android:name=".BroadCastReceiver.TSMSBroadcastReceiver" android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="999">
                 <!--短信广播-->
+                <action android:name="android.provider.OppoSpeechAssist.SMS_RECEIVED" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 

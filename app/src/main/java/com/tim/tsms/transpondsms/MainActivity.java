@@ -183,14 +183,16 @@ public class MainActivity extends AppCompatActivity implements ReFlashListView.I
         PackageManager pm = getPackageManager();
         boolean permission_receive_boot = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.RECEIVE_BOOT_COMPLETED", this.getPackageName()));
         boolean permission_readsms = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.READ_SMS", this.getPackageName()));
+        boolean permission_receive_sms = (PackageManager.PERMISSION_GRANTED == pm.checkPermission(Manifest.permission.RECEIVE_SMS, this.getPackageName()));
 
         if (!(
                 permission_receive_boot
-                && permission_readsms
+                        && permission_readsms
+                        && permission_receive_sms
         )) {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                    Manifest.permission.READ_SMS,
+                    Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS
             }, 0x01);
         }
     }
